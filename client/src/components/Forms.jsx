@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-
+// Styling
 const FormStyles = styled.div`
   display: flex;
   flex-flow: column;
@@ -31,7 +31,7 @@ const FormStyles = styled.div`
   }
 `;
 
-
+// all the options for the select form
 const liquors = [
   {value: '', label: 'Select...', key: 0},
   {value: 'Bourbon', label: 'Bourbon', key: 1},
@@ -48,25 +48,28 @@ const Forms = () => {
   const [ liquor, setLiquor ] = useState({ strIngredient: '' });
   const [ liquorDescription, setLiquorDescription ] = useState({ strDescription: '' });
 
-
+  // will handle the state change when an option from select form is selected
   const handleLiquorChange = (e) => {
     const { value } = e.target;
     console.info(value);
     setLiquor({ strIngredient: value });
   };
 
+  // handles the state change when the Search button is clicked
+  // also calls the external api to get the data which is then set to the current state of 'liquorDescription'
   const handleDescriptionChange = async () => {
     const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${liquor.strIngredient}`, );
     console.info(result);
     setLiquorDescription({ strDescription: result.data.ingredients[0].strDescription });
   };
 
+
   return (
     <FormStyles>
       <div>
-        {/* <h3>Liquor Learning Center</h3> */}
         <h3>Select a liquor to learn more about it:</h3>
         <select name='strIngredient' value={liquor.strIngredient} placeholder='Select...' onChange={handleLiquorChange}>
+          {/* mapping through the liquors array which contains the select form options */}
           {liquors.map((liquor) => (
             <option key={liquor.key} value={liquor.value}>{liquor.label}</option>
           ))}
