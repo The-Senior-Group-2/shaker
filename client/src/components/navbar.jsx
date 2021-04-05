@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+//Assign variables with css from styled components
 const Nav = styled.nav`
   padding: 0 20px;
   min-height: 9vh;
@@ -96,6 +97,7 @@ const OverlayMenu = styled.ul`
 `;
 
 const MyNavbar = () => {
+  //use hooks, toggle is the state
   const [toggle, toggleNav] = useState(false);
   return (
     <>
