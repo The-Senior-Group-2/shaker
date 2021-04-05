@@ -2,7 +2,8 @@ import React from 'react';
 import NavBar from './navbar.jsx'
 import styled from "styled-components";
 import ReactDOM from "react-dom";
-
+import About from './About.jsx'
+import {BrowserRouter,Route,Switch} from 'react-router-dom';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,11 +21,11 @@ class App extends React.Component {
     margin-top: 50px;
   `;
     return (
-      <div className="app">
-        <NavBar />
-        <Title>Shaker</Title>
+      <BrowserRouter>
+      <div className="App">
+        <NavBar/>
       </div>
-
+      </BrowserRouter>
     );
   }
 
