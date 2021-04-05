@@ -1,6 +1,6 @@
 const path = require('path');
 
-const entryPath = path.join(__dirname, '/client/src'); 
+const entryPath = path.join(__dirname, '/client/src');
 const outputPath = path.join(__dirname, '/client/dist');
 
 
