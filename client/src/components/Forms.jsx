@@ -57,6 +57,7 @@ const liquors = [
 const Forms = () => {
   const [ liquor, setLiquor ] = useState({ strIngredient: '' });
   const [ liquorDescription, setLiquorDescription ] = useState({ strDescription: '' });
+  const [ header, setHeader ] = useState('');
 
   const { strDescription } = liquorDescription;
   const { strIngredient } = liquor;
@@ -83,10 +84,15 @@ const Forms = () => {
   }, [strIngredient]);
 
 
-
+  // will dynamically display the header of the information section; if there is an option selected, the header
+  // will be displayed using that options value; if there is no option, or if the user reselects the default
+  // "Select..." option, no header will be displayed
   const InfoHeader = () => {
+    strIngredient ?
+      setHeader(`Information about ${strIngredient}:`) :
+      setHeader('');
     return (
-      <h3>Information about {strIngredient}:</h3>
+      <h3>{header}</h3>
     );
   };
 
