@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Navbar,  Form, FormControl, Button, NavItem } from 'react-bootstrap';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import Bar from './About.jsx'
 
 
@@ -14,6 +14,13 @@ const Nav = styled.nav`
   align-items: center;
 `;
 
+const LinkCss = styled.a`
+  color: white;
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
+`;
 const Logo = styled.h1`
   font-size: 25px;
   color: white;
@@ -94,22 +101,27 @@ const MyNavbar = () => {
     <div>
     <div>
     <Nav>
-        <Logo>Shaker</Logo>
+        <Logo as={Link} to="/">Shaker</Logo>
         <Menu>
           <Item>
-            <Link as={Link} to="/about" >
+            <LinkCss as={Link} to="/" >
+              Home
+            </LinkCss>
+          </Item>
+          <Item>
+            <LinkCss as={Link} to="/about" >
               Search
-            </Link>
+            </LinkCss>
           </Item>
           <Item>
-            <Link target="#" href="https://en.wikipedia.org/wiki/Vodka">
+            <LinkCss target={Link} href="https://en.wikipedia.org/wiki/Vodka">
               Vodka
-            </Link>
+            </LinkCss>
           </Item>
           <Item>
-            <Link target="#" href="https://flordecana.com/">
+            <LinkCss target="#" href="https://flordecana.com/">
               Flor De Cana
-            </Link>
+            </LinkCss>
           </Item>
         </Menu>
         <NavIcon onClick={() => toggleNav(!toggle)}>
