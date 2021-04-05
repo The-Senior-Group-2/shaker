@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Forms from './Forms.jsx';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
-
 
     this.state = {
 
@@ -12,14 +12,13 @@ class App extends React.Component {
 
   render() {
 
-     
     return (
       <div>
-        <h3>Shaker</h3>
+        <h1>Shaker</h1>
+        <Forms />
       </div>
     );
   }
-
 }
 
 export default App;
