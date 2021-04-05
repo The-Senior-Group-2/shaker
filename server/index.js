@@ -12,4 +12,6 @@ app.use(urlencoded({extended: true}));
 app.use('/', express.static(clientPath));
 
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.info(`started on port: http://127.0.0.1:${PORT}`);
+});

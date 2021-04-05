@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import Forms from './Forms.jsx';
+import FormsContainer from './FormsContainer.jsx';
+import styled from 'styled-components';
+
+const AppStyles = styled.div`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -13,10 +20,12 @@ class App extends Component {
   render() {
 
     return (
-      <div>
-        <h1>Shaker</h1>
-        <Forms />
-      </div>
+      <AppStyles>
+        <div>
+          {/* <h1>Shaker</h1> */}
+          <FormsContainer />
+        </div>
+      </AppStyles>
     );
   }
 }
