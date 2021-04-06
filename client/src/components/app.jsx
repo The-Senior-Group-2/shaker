@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import FormsContainer from './FormsContainer.jsx';
-import Search from './Search.jsx';
+import FormsContainer from './FormsContainer';
+import Search from './Search';
+import Bar from './Bar';
 
 const AppStyles = styled.div`
   display: flex;
@@ -27,8 +28,13 @@ class App extends Component {
           {/* <h1>Shaker</h1> */}
           <FormsContainer />
         </div>
+        <br/>
         <div className='recipe-search'>
           <Search />
+        </div>
+        <br/>
+        <div className='recipe-result'>
+          <Bar />
         </div>
       </AppStyles>
     );

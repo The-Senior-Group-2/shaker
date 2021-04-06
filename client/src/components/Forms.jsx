@@ -4,17 +4,15 @@ import styled from 'styled-components';
 
 // Styling
 const FormStyles = styled.div`
-  background: rgb(35, 35, 35);
-  color: rgb(240, 240, 240);
+  background: inherit;
+  color: ghostwhite;
   display: flex;
   flex-flow: column;
   padding: 20%;
-  /* align-items: center; */
-  /* margin-top: auto; */
   width: 490px;
   button, select{
     background: rgb(35, 35, 35);
-    color: rgb(240, 240, 240);
+    color: ghostwhite;
     font-size: 14px;
     width: fit-content;
     padding: 0.25rem 0.75rem;
@@ -31,7 +29,7 @@ const FormStyles = styled.div`
     }
   };
   h3{
-    color: cornflowerblue
+    color: #50d6da;
   };
   *{
     flex-flow: column;
@@ -75,6 +73,7 @@ const Forms = () => {
     const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${strIngredient}`, );
     console.info(result);
     setLiquorDescription({ strDescription: result.data.ingredients[0].strDescription });
+    setHeader(`Information about ${strIngredient}:`);
   };
 
 
@@ -82,21 +81,6 @@ const Forms = () => {
   useEffect(() => {
     setLiquorDescription('');
   }, [strIngredient]);
-
-
-  // will dynamically display the header of the information section; if there is an option selected, the header
-  // will be displayed using that options value; if there is no option, or if the user reselects the default
-  // "Select..." option, no header will be displayed
-  const InfoHeader = () => {
-    strIngredient ?
-      setHeader(`Information about ${strIngredient}:`) :
-      setHeader('');
-    return (
-      <h3>{header}</h3>
-    );
-  };
-
-
 
 
   return (
@@ -129,7 +113,7 @@ const Forms = () => {
           Search
         </button>
         <div>
-          <InfoHeader />
+          <h3>{header}</h3>
           <p
             name='strDescription'
             value={strDescription}
