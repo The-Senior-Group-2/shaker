@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Navbar,  Form, FormControl, Button, NavItem } from 'react-bootstrap';
 import { BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import Bar from './About.jsx'
+import Search from './Search.jsx'
 
 
 const Nav = styled.nav`
@@ -104,12 +105,12 @@ const MyNavbar = () => {
         <Logo as={Link} to="/">Shaker</Logo>
         <Menu>
           <Item>
-            <LinkCss as={Link} to="/" >
+            <LinkCss as={Link} to="/about" >
               Home
             </LinkCss>
           </Item>
           <Item>
-            <LinkCss as={Link} to="/about" >
+            <LinkCss as={Link} to="/search" >
               Search
             </LinkCss>
           </Item>
@@ -153,6 +154,7 @@ const MyNavbar = () => {
     <div>
       <Switch>
         <Route exact path='/about' component={Bar} />
+        <Route exact path='/search' component={Search} />
         <Route render={function () {
           return <p>Hey!!!!</p>
         }} />
