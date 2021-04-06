@@ -116,11 +116,11 @@ const Bar = () => {
         <div>
           <BarBanner />
           <ul>
-            <IngredientsMapComponent ingredientsList={ingredientsList}/>
+            <IngredientsMapComponent />
           </ul>
         </div>
         <div>
-          <MultiSearch />
+          <MultiSearch ingredientsList={ingredientsList}/>
         </div>
       </div>
     </BarStyle>
