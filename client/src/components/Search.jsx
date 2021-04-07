@@ -88,15 +88,17 @@ const Search = () => {
             borderLeft: '0px',
           }}
         />
-        {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
-        <p
+        <a
           style={{
             color: '#54e5ea',
             paddingLeft: '7%',
             fontSize: '28px',
             alignContent: 'center'
           }}
-        >{drink.strDrink}</p>
+          href={`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`}
+          rel='noreferrer'
+          target='_blank'
+        >{drink.strDrink}</a>
       </div>
     );
   });

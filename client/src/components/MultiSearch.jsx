@@ -64,14 +64,11 @@ const MultiSearch = (props) => {
             fontSize: '28px',
             alignContent: 'center'
           }}
-          name={drink.strDrink}
-          id={drink.idDrink}
           href={`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`}
-          // onClick={
-          //   async () => {
-          //     return await axios.get(`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`);
-          //   }
-          // }
+          rel='noreferrer'
+          target='_blank'
+          // name={drink.strDrink}
+          // id={drink.idDrink}
         >{drink.strDrink}</a>
       </div>
     );
