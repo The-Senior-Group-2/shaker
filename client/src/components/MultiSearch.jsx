@@ -30,12 +30,10 @@ const MultiSearch = (props) => {
     }
   };
   const params = finalParams();
-  console.info('PARAMS PASSED TO API CALL:', params);
-  // console.info('ingredientsList:', ingredientsList, 'searchParams:', searchParams, 'finalParams:', finalParams());
 
   const handleMultiItemSearch = async () => {
-    const results = await axios.get();
-    console.info('RESULTS.DATA FROM API:', results.data.drinks);
+    const results = await axios.get(`https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${params}`);
+    // const results = await axios.get();
     setRecipeSearchResults(results.data.drinks);
   };
 
@@ -59,14 +57,22 @@ const MultiSearch = (props) => {
           }}
         />
         {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
-        <p
+        <a
           style={{
             color: '#54e5ea',
             paddingLeft: '7%',
             fontSize: '28px',
             alignContent: 'center'
           }}
-        >{drink.strDrink}</p>
+          name={drink.strDrink}
+          id={drink.idDrink}
+          href={`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`}
+          // onClick={
+          //   async () => {
+          //     return await axios.get(`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`);
+          //   }
+          // }
+        >{drink.strDrink}</a>
       </div>
     );
   });

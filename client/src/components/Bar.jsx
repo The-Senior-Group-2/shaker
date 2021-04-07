@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import MultiSearch from './MultiSearch';
+import Recipe from './Recipe';
 import ConditionalBannerH4 from './ConditionalBannerH4';
 
 // Styling
@@ -41,6 +42,8 @@ const Bar = () => {
   const [ ingredient, setIngredient ] = useState('');
   const [ ingredientsList, setIngredientsList ] = useState([]);
 
+
+  console.info(Recipe);
 
   const handleChange = (e) => {
     const { value } = e.target;
