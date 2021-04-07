@@ -4,7 +4,8 @@ import { Navbar,  Form, FormControl, Button, NavItem } from 'react-bootstrap';
 import { BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import Bar from './About.jsx'
 import Search from './Search.jsx'
-
+import Favorite from './Favorite.jsx'
+import Home from './Home.jsx'
 
 const Nav = styled.nav`
   padding: 0 20px;
@@ -30,7 +31,7 @@ const Logo = styled.h1`
 const Menu = styled.ul`
   list-style: none;
   display: flex;
-  li:nth-child(2) {
+  li:nth-child(odd) {
     margin: 0px 20px;
   }
   @media (max-width: 768px) {
@@ -102,7 +103,7 @@ const MyNavbar = () => {
     <div>
     <div>
     <Nav>
-        <Logo as={Link} to="/">Shaker</Logo>
+        <Logo as={Link} to="/home">Shaker</Logo>
         <Menu>
           <Item>
             <LinkCss as={Link} to="/about" >
@@ -120,8 +121,8 @@ const MyNavbar = () => {
             </LinkCss>
           </Item>
           <Item>
-            <LinkCss target="#" href="https://flordecana.com/">
-              Flor De Cana
+            <LinkCss as={Link} to="/favorite">
+              Favorite
             </LinkCss>
           </Item>
         </Menu>
@@ -154,7 +155,9 @@ const MyNavbar = () => {
     <div>
       <Switch>
         <Route exact path='/about' component={Bar} />
+        <Route exact path='/home' component={Home} />
         <Route exact path='/search' component={Search} />
+        <Route exact path='/favorite' component={Favorite} />
         <Route render={function () {
           return <p>Hey!!!!</p>
         }} />
