@@ -7,4 +7,3 @@ node_modules
 # Project
 client/dist/bundle.js
 .env
-.config.js
