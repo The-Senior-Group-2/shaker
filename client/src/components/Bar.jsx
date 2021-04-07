@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import MultiSearch from './MultiSearch';
+import ConditionalBannerH4 from './ConditionalBannerH4';
 
+// Styling
 const BarStyle = styled.div`
   background: inherit;
   color: ghostwhite;
@@ -42,7 +44,6 @@ const BarStyle = styled.div`
 const Bar = () => {
   const [ ingredient, setIngredient ] = useState('');
   const [ ingredientsList, setIngredientsList ] = useState([]);
-  // const [ showIngredient, setShowIngredient ] = useState(false);
 
 
   const handleChange = (e) => {
@@ -58,38 +59,32 @@ const Bar = () => {
     await setIngredient('');
   };
 
-
+  // Press enter key as an alternative to clicking the button
   const handleKeyDown = (e) => {
     const { key } = e;
     key === 'Enter' && handleClick();
   };
 
-
+  // IngredientsMapComponent filters out any item that is an empty string as a result
+  // of the user clicking button with nothing inside the input field. When this occurs
+  // the empty string is never rendered to the page, but it is still added to the
+  // ingredientsList, and must be removed in order to correctly pass items to api call.
+  // The function then creates a list entry for the newly added ingredient.
   const IngredientsMapComponent = () => {
-    const ingredientsListMap = ingredientsList.map((ingredient, i) => {
-      return (
-        <li
-          key={i}
-          name={ingredient}
-        >
-          {ingredient}
-        </li>
-      );
-    });
-    return ingredientsListMap;
-  };
-
-
-  const BarBanner = () => {
-    if (ingredientsList.length) {
-      return (
-        <label>My Bar:</label>
-      );
-    } else {
-      return (
-        <label></label>
-      );
-    }
+    const compileListEntries = ingredientsList.filter(ingredient => {
+      return ingredient.length !== 0;
+    })
+      .map((ingredient, i) => {
+        return (
+          <li
+            key={i}
+            name={ingredient}
+          >
+            {ingredient}
+          </li>
+        );
+      });
+    return compileListEntries;
   };
 
 
@@ -105,20 +100,26 @@ const Bar = () => {
           onKeyDown={handleKeyDown}
         >
         </input>
-        <button
-          onClick={handleClick}
-        >
+        <button onClick={handleClick}>
           Add to Bar
         </button>
         <br />
         <br />
         <br />
         <div>
-          <BarBanner />
+          <ConditionalBannerH4
+            banner='My Bar:'
+            item={ingredientsList}/>
           <ul>
             <IngredientsMapComponent />
           </ul>
         </div>
+        <br />
+        <br />
+        <ConditionalBannerH4
+          banner='Press the SIP button to see the all the dranks you can make!'
+          item={ingredientsList}
+        />
         <div>
           <MultiSearch ingredientsList={ingredientsList}/>
         </div>
@@ -126,9 +127,6 @@ const Bar = () => {
     </BarStyle>
   );
 };
-
-
-
 
 
 export default Bar;
