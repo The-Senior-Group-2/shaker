@@ -9,15 +9,14 @@ const AppStyles = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  display: block;
 `;
 
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-
-    };
   }
 
   render() {

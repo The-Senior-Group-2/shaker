@@ -33,10 +33,6 @@ const BarStyle = styled.div`
   h3{
     color: cornflowerblue
   };
-  *{
-    flex-flow: column;
-    align-items: center;
-  }
 `;
 
 // the bar component will have a text form where users enter ingredients, and a button to add them to that user's bar
@@ -117,7 +113,7 @@ const Bar = () => {
         <br />
         <br />
         <ConditionalBannerH4
-          banner='Press the SIP button to see the all the dranks you can make!'
+          banner='Press the SIP button to see what you can make!'
           item={ingredientsList}
         />
         <div>

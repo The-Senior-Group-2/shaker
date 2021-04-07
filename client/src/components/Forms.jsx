@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+import ConditionalBannerH4 from './ConditionalBannerH4';
+
 // Styling
 const FormStyles = styled.div`
   background: inherit;
@@ -28,13 +30,13 @@ const FormStyles = styled.div`
       box-shadow: -2px -2px 6px rgba(100,100,100, 1), 3px 3px 4px rgba(0,0,0, 1);
     }
   };
-  h3{
+  h3, h4{
     color: #50d6da;
   };
-  *{
+  /* *{
     flex-flow: column;
     align-items: center;
-  }
+  } */
 `;
 
 // all the options for the select form
@@ -55,7 +57,7 @@ const liquors = [
 const Forms = () => {
   const [ liquor, setLiquor ] = useState({ strIngredient: '' });
   const [ liquorDescription, setLiquorDescription ] = useState({ strDescription: '' });
-  const [ header, setHeader ] = useState('');
+  // const [ header, setHeader ] = useState('');
 
   const { strDescription } = liquorDescription;
   const { strIngredient } = liquor;
@@ -73,7 +75,6 @@ const Forms = () => {
     const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${strIngredient}`, );
     console.info(result);
     setLiquorDescription({ strDescription: result.data.ingredients[0].strDescription });
-    setHeader(`Information about ${strIngredient}:`);
   };
 
 
@@ -113,7 +114,10 @@ const Forms = () => {
           Search
         </button>
         <div>
-          <h3>{header}</h3>
+          <ConditionalBannerH4
+            banner={`Information about ${strIngredient}:`}
+            item={strIngredient}
+          />
           <p
             name='strDescription'
             value={strDescription}

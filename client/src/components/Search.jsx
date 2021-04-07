@@ -29,10 +29,10 @@ const SearchStyle = styled.div`
       box-shadow: -2px -2px 6px rgba(100,100,100, 1), 3px 3px 4px rgba(0,0,0, 1);
     }
   };
-  *{
+  /* *{
     flex-flow: column;
     align-items: center;
-  }
+  } */
 `;
 
 
@@ -47,7 +47,7 @@ const Search = () => {
     setSearchFor(value);
   };
 
-  const handleSearch = async () => {
+  const handleSingleItemSearch = async () => {
     const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
     console.info(result);
     setSearchResults(result.data.drinks);
@@ -55,7 +55,7 @@ const Search = () => {
 
   const handleClick = () => {
     try {
-      handleSearch();
+      handleSingleItemSearch();
     } catch (err) {
       console.info(err);
     }
@@ -120,9 +120,7 @@ const Search = () => {
           Get Recipes!
         </button>
         <div className='search-result-container'>
-          {
-            drinkMap
-          }
+          {drinkMap}
         </div>
       </div>
     </SearchStyle>

@@ -1,6 +1,8 @@
 const { urlencoded } = require('express');
 const express = require('express');
 const path = require('path');
+const dotenv = require('dotenv');
+
 const clientPath = path.resolve(__dirname, '../client/dist');
 
 const app = express();
@@ -14,4 +16,8 @@ app.use('/', express.static(clientPath));
 
 app.listen(PORT, () => {
   console.info(`started on port: http://127.0.0.1:${PORT}`);
+});
+
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
 });

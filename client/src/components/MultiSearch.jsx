@@ -1,10 +1,15 @@
-// import React, { useState } from 'react';
-import React from 'react';
-// import axios from 'axios';
+import React, { useState } from 'react';
+// import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
+
+// import Recipe from './Recipe';
 
 
 const MultiSearch = (props) => {
+  const [ recipeSearchResults, setRecipeSearchResults ] = useState([]);
+  // const [ recipeIsFav, setRecipeIsFav ] = useState(false);
+
   const { ingredientsList } = props;
   const searchParams = [...ingredientsList];
 
@@ -24,22 +29,69 @@ const MultiSearch = (props) => {
       return addCommas;
     }
   };
-
-
-
   const params = finalParams();
-  console.info(params);
-  // const multiItemSearch = async () => {
-  //   const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${params}`);
-  //   console.info(result);
-
-  //   // ?? (result.data.drinks); ?? //
-  // };
-
+  console.info('PARAMS PASSED TO API CALL:', params);
   // console.info('ingredientsList:', ingredientsList, 'searchParams:', searchParams, 'finalParams:', finalParams());
+
+  const handleMultiItemSearch = async () => {
+    const results = await axios.get();
+    console.info('RESULTS.DATA FROM API:', results.data.drinks);
+    setRecipeSearchResults(results.data.drinks);
+  };
+
+  const drinkMap = recipeSearchResults.map((drink) => {
+    return (
+      <div
+        key={drink.idDrink}
+        style={{
+          border: '2px solid ghostwhite',
+          borderTop: '0px',
+          margin: '5%',
+          alignItems: 'center',
+        }}
+      >
+        <img
+          src={drink.strDrinkThumb}
+          style={{
+            display: 'block',
+            border: '2px solid ghostwhite',
+            borderLeft: '0px',
+          }}
+        />
+        {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
+        <p
+          style={{
+            color: '#54e5ea',
+            paddingLeft: '7%',
+            fontSize: '28px',
+            alignContent: 'center'
+          }}
+        >{drink.strDrink}</p>
+      </div>
+    );
+  });
+
+  const handleClick = () => {
+    try {
+      handleMultiItemSearch();
+    } catch (err) {
+      console.info(err);
+    }
+  };
+
   return (
     <div>
-      <button>Search</button>
+      <button
+        style={{
+          marginTop: '1%',
+        }}
+        onClick={handleClick}
+      >
+        SIP!
+      </button>
+      <div>
+        {drinkMap}
+      </div>
     </div>
   );
 };
