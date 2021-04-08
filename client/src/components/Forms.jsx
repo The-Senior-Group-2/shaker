@@ -72,9 +72,13 @@ const Forms = () => {
   // handles the state change when the Search button is clicked
   // also calls the external api to get the data which is then set to the current state of 'liquorDescription'
   const handleDescriptionChange = async () => {
-    const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${strIngredient}`, );
-    console.info(result);
-    setLiquorDescription({ strDescription: result.data.ingredients[0].strDescription });
+    try {
+      const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${strIngredient}`, );
+      console.info(result);
+      setLiquorDescription({ strDescription: result.data.ingredients[0].strDescription });
+    } catch (error) {
+      console.info(error);
+    }
   };
 
 

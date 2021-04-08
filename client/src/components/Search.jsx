@@ -29,10 +29,6 @@ const SearchStyle = styled.div`
       box-shadow: -2px -2px 6px rgba(100,100,100, 1), 3px 3px 4px rgba(0,0,0, 1);
     }
   };
-  /* *{
-    flex-flow: column;
-    align-items: center;
-  } */
 `;
 
 
@@ -48,16 +44,20 @@ const Search = () => {
   };
 
   const handleSingleItemSearch = async () => {
-    const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
-    console.info(result);
-    setSearchResults(result.data.drinks);
+    try {
+      const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
+      console.info(result);
+      setSearchResults(result.data.drinks);
+    } catch (error) {
+      console.info(error);
+    }
   };
 
   const handleClick = () => {
     try {
       handleSingleItemSearch();
-    } catch (err) {
-      console.info(err);
+    } catch (error) {
+      console.info(error);
     }
   };
 

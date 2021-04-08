@@ -32,9 +32,13 @@ const MultiSearch = (props) => {
   const params = finalParams();
 
   const handleMultiItemSearch = async () => {
-    const results = await axios.get(`https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${params}`);
+    try {
+      const results = await axios.get(`https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${params}`);
+      setRecipeSearchResults(results.data.drinks);
+    } catch (error) {
+      console.info(error);
+    }
     // const results = await axios.get();
-    setRecipeSearchResults(results.data.drinks);
   };
 
   const drinkMap = recipeSearchResults.map((drink) => {
@@ -56,7 +60,6 @@ const MultiSearch = (props) => {
             borderLeft: '0px',
           }}
         />
-        {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
         <a
           style={{
             color: '#54e5ea',
