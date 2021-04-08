@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Navbar,  Form, FormControl, Button, NavItem } from 'react-bootstrap';
-import { BrowserRouter, Route, Switch, Link} from 'react-router-dom';
-import Bar from './About.jsx'
-import Search from './Search.jsx'
-import Favorite from './Favorite.jsx'
-import Home from './Home.jsx'
+import React, { useState, } from 'react';
+import styled from 'styled-components';
+import { Route, Switch, Link} from 'react-router-dom';
+import Search from './Search.jsx';
+import MyBar from './Bar.jsx';
+import Forms from './Forms.jsx';
+import Home from './Home.jsx';
+
+// import Zero from '../image/zero.jpg';
 
 const Nav = styled.nav`
   padding: 0 20px;
@@ -14,6 +15,8 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
 `;
 
 const LinkCss = styled.a`
@@ -62,13 +65,17 @@ const Line = styled.span`
   background-color: #fff;
   transition: width 0.4s ease-in-out;
   :nth-child(2) {
-    width: ${props => (props.open ? "40%" : "70%")};
+    width: ${props => (props.open
+    ? '40%'
+    : '70%')};
   }
 `;
 
 const Overlay = styled.div`
   position: absolute;
-  height: ${props => (props.open ? "91vh" : 0)};
+  height: ${props => (props.open
+    ? '91vh'
+    : 0)};
   width: 100vw;
   background: #1c2022;
   transition: height 0.4s ease-in-out;
@@ -84,7 +91,9 @@ const OverlayMenu = styled.ul`
   top: 45%;
   transform: translate(-50%, -50%);
   li {
-    opacity: ${props => (props.open ? 1 : 0)};
+    opacity: ${props => (props.open
+    ? 1
+    : 0)};
     font-size: 25px;
     margin: 50px 0px;
     transition: opacity 0.4s ease-in-out;
@@ -101,78 +110,88 @@ const MyNavbar = () => {
   const [toggle, toggleNav] = useState(false);
   return (
     <div>
-    <div>
-    <Nav>
-        <Logo as={Link} to="/home">Shaker</Logo>
-        <Menu>
-          <Item>
-            <LinkCss as={Link} to="/about" >
+      <div>
+        <Nav >
+          <Logo as={Link} to="/">Shaker</Logo>
+          <Menu >
+            <Item>
+              <LinkCss as={Link} to="/" >
               Home
-            </LinkCss>
-          </Item>
-          <Item>
-            <LinkCss as={Link} to="/search" >
+              </LinkCss>
+            </Item>
+            <Item>
+              <LinkCss as={Link} to="/search" >
               Search
-            </LinkCss>
-          </Item>
-          <Item>
-            <LinkCss target={Link} href="https://en.wikipedia.org/wiki/Vodka">
-              Vodka
-            </LinkCss>
-          </Item>
-          <Item>
-            <LinkCss as={Link} to="/favorite">
-              Favorite
-            </LinkCss>
-          </Item>
-        </Menu>
-        <NavIcon onClick={() => toggleNav(!toggle)}>
-          <Line open={toggle} />
-          <Line open={toggle} />
-          <Line open={toggle} />
-        </NavIcon>
-      </Nav>
-      <Overlay open={toggle}>
-        <OverlayMenu open={toggle}>
-          <Item>
-            <Link target="#" href="https://www.google.com/">
+              </LinkCss>
+            </Item>
+            <Item>
+              <LinkCss as={Link} to="/bar">
+              My Bar
+              </LinkCss>
+            </Item>
+            <Item>
+              <LinkCss as={Link} to="/learn">
+              Learn
+              </LinkCss>
+            </Item>
+          </Menu>
+          <NavIcon onClick={() => toggleNav(!toggle)}>
+            <Line open={toggle} />
+            <Line open={toggle} />
+            <Line open={toggle} />
+          </NavIcon>
+        </Nav>
+        <Overlay open={toggle}>
+          <OverlayMenu open={toggle}>
+            <Item>
+              <Link target="#" href="https://www.google.com/">
             Vodka
-            </Link>
-          </Item>
-          <Item>
-            <Link target="#"  href="https://en.wikipedia.org/wiki/Vodka">
+              </Link>
+            </Item>
+            <Item>
+              <Link target="#" href="https://en.wikipedia.org/wiki/Vodka">
               Vodka
-            </Link>
-          </Item>
-          <Item>
-            <Link target="#" href="https://flordecana.com/">
+              </Link>
+            </Item>
+            <Item>
+              <Link target="#" href="https://flordecana.com/">
               Flor De Cana
-            </Link>
-          </Item>
-        </OverlayMenu>
-      </Overlay>
+              </Link>
+            </Item>
+          </OverlayMenu>
+        </Overlay>
+      </div>
+      <div >
+        <Switch>
+          <Route exact path='/search' component={Search} />
+          <Route exact path='/bar' component={MyBar} />
+          <Route exact path='/learn' component={Forms} />
+          <Route exact path='/' component={Home} />
+          {/* <Route render={function () {
+            return (
+              <div style={{
+                backgroundImage: 'url("https://images.unsplash.com/photo-1612325508365-22caba7bb69e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80")',
+                height: '1000px',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat'
+              }}>
+                <Route exact path='/' component={Search} />
+              </div>
+            );
+          }} /> */}
+        </Switch>
+      </div>
     </div>
-    <div>
-      <Switch>
-        <Route exact path='/about' component={Bar} />
-        <Route exact path='/home' component={Home} />
-        <Route exact path='/search' component={Search} />
-        <Route exact path='/favorite' component={Favorite} />
-        <Route render={function () {
-          return <p>Hey!!!!</p>
-        }} />
-      </Switch>
-    </div>
-  </div>
-);
+  );
 };
 
-export default MyNavbar
+export default MyNavbar;
 
 
 
 
-{/* <Navbar>
+{ /* <Navbar>
 <Navbar.Brand as={Link} to="/" >Shaker</Navbar.Brand>
 <Navbar.Collapse>
   <Nav className="mr-auto">
@@ -186,4 +205,4 @@ export default MyNavbar
     <Button variant="outline-success">Search</Button>
   </Form>
 </Navbar.Collapse>
-</Navbar> */}
+</Navbar> */ }

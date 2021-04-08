@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+
+
 const SearchStyle = styled.div`
   background: inherit;
-  color: blue;
+  color: ghostwhite;
   display: flex;
   flex-flow: column;
+  column-width: auto;
   padding: 20%;
   width: 490px;
   button, input{
@@ -26,26 +29,33 @@ const SearchStyle = styled.div`
       box-shadow: -2px -2px 6px rgba(100,100,100, 1), 3px 3px 4px rgba(0,0,0, 1);
     }
   };
-  *{
+  /* *{
     flex-flow: column;
     align-items: center;
-  }
+  } */
 `;
+
+
+
 const Search = () => {
   const [ searchFor, setSearchFor ] = useState('');
   const [ searchResults, setSearchResults ] = useState([]);
+
+
   const handleChange = (e) => {
     const { value } = e.target;
     setSearchFor(value);
   };
-  const handleSearch = async () => {
+
+  const handleSingleItemSearch = async () => {
     const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
     console.info(result);
     setSearchResults(result.data.drinks);
   };
+
   const handleClick = () => {
     try {
-      handleSearch();
+      handleSingleItemSearch();
     } catch (err) {
       console.info(err);
     }
@@ -63,6 +73,7 @@ const Search = () => {
         key={drink.idDrink}
         style={{
           border: '2px solid ghostwhite',
+          borderTop: '0px',
           margin: '5%',
           alignItems: 'center',
         }}
@@ -70,23 +81,30 @@ const Search = () => {
         <img
           src={drink.strDrinkThumb}
           style={{
-            // height: 'auto',
-            // width: 'auto'
             display: 'block',
             border: '2px solid ghostwhite',
+            borderLeft: '0px',
+            width: '100%',
+            height: 'auto'
           }}
         />
         {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
-        <p
+        <a
           style={{
-            color: '#50d6da',
-            flexFlow: 'column',
-            paddingLeft: '5%'
+            color: '#54e5ea',
+            paddingLeft: '7%',
+            fontSize: '28px',
+            alignContent: 'center'
           }}
-        >{drink.strDrink}</p>
+          href={`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`}
+          rel='noreferrer'
+          target='_blank'
+        >{drink.strDrink}</a>
       </div>
     );
   });
+
+
   return (
     <SearchStyle>
       <div>
@@ -105,12 +123,11 @@ const Search = () => {
           Get Recipes!
         </button>
         <div className='search-result-container'>
-          {
-            drinkMap
-          }
+          {drinkMap}
         </div>
       </div>
     </SearchStyle>
   );
 };
+
 export default Search;

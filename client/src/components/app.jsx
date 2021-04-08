@@ -1,34 +1,38 @@
-import React from 'react';
-import NavBar from './navbar.jsx'
-import styled from "styled-components";
-import ReactDOM from "react-dom";
-import About from './About.jsx'
-import {BrowserRouter,Route,Switch} from 'react-router-dom';
-class App extends React.Component {
+import NavBar from './navbar.jsx';
+import styled from 'styled-components';
+import { BrowserRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+// import FormsContainer from './FormsContainer';
+// import Search from './Search';
+// import Bar from './Bar';
+
+const AppStyles = styled.div`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  display: block;
+`;
+
+class App extends Component {
   constructor(props) {
     super(props);
-
-
-    this.state = {
-
-    };
   }
 
   render() {
-    const Title = styled.h1`
-    font-size: 25px;
-    text-align: center;
-    margin-top: 50px;
-  `;
+
     return (
       <BrowserRouter>
-      <div className="App">
-        <NavBar/>
-      </div>
+        <AppStyles>
+          <div>
+            <NavBar/>
+          </div>
+        </AppStyles>
       </BrowserRouter>
+
     );
   }
-
 }
 
 export default App;
