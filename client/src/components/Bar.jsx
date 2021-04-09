@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import MultiSearch from './MultiSearch';
-import Recipe from './Recipe';
+// import Recipe from './Recipe';
 import ConditionalBannerH4 from './ConditionalBannerH4';
 
 // Styling
@@ -41,9 +41,13 @@ const BarStyle = styled.div`
 const Bar = () => {
   const [ ingredient, setIngredient ] = useState('');
   const [ ingredientsList, setIngredientsList ] = useState([]);
+  // !! //
 
+  const [ isValid, setIsValid ] = useState(false);
+  const [ validIngredients, setValidIngredients ] = useState([]);
 
-  console.info(Recipe);
+  // !! //
+
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -52,10 +56,15 @@ const Bar = () => {
 
 
   const handleClick = async () => {
-    setIngredientsList((prevList) => {
-      return [ ...prevList, ingredient ];
-    });
-    await setIngredient('');
+    handleValidation()
+      .then(() => {
+        setIngredientsList((prevList) => {
+          return [ ...prevList, ingredient ];
+        });
+      })
+      .then(setIngredient(''))
+      .catch(error => console.info(error));
+    // await setIngredient('');
   };
 
   // Press enter key as an alternative to clicking the button
@@ -63,6 +72,7 @@ const Bar = () => {
     const { key } = e;
     key === 'Enter' && handleClick();
   };
+
 
   // IngredientsMapComponent filters out any item that is an empty string as a result
   // of the user clicking button with nothing inside the input field. When this occurs
@@ -87,6 +97,28 @@ const Bar = () => {
   };
 
 
+  // !! //
+
+  useEffect(() => {
+    setValidIngredients(['gin', 'lime', 'tonic water']);
+  }, []);
+
+
+  const handleValidation = () => {
+    for (let i = 0; i < validIngredients.length; i++) {
+      if (ingredient !== validIngredients[i]) {
+        isValid;
+      } else {
+        setIsValid(true);
+      }
+    }
+  };
+
+  // !! //
+
+
+
+
   return (
     <BarStyle>
       <div>
@@ -99,7 +131,13 @@ const Bar = () => {
           onKeyDown={handleKeyDown}
         >
         </input>
-        <button onClick={handleClick}>
+        <button
+          onClick={
+            isValid &&
+              handleClick
+
+          }
+        >
           Add to Bar
         </button>
         <br />
@@ -120,7 +158,10 @@ const Bar = () => {
           item={ingredientsList}
         />
         <div>
-          <MultiSearch ingredientsList={ingredientsList}/>
+          <MultiSearch
+            ingredientsList={ingredientsList}
+            ingredient={ingredient}
+          />
         </div>
       </div>
     </BarStyle>

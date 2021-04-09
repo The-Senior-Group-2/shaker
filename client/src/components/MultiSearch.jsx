@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -8,12 +7,12 @@ import PropTypes from 'prop-types';
 
 const MultiSearch = (props) => {
   const [ recipeSearchResults, setRecipeSearchResults ] = useState([]);
-  // const [ recipeIsFav, setRecipeIsFav ] = useState(false);
+  const [ isLoaded, setIsLoaded ] = useState(true);
+  const [ error, setError ] = useState(null);
 
   const { ingredientsList } = props;
   const searchParams = [...ingredientsList];
 
-  // const [ recipes, setRecipes ] = useState();
 
   // finalParams will use a state prop from the Bar component to process
   // the data in order to pass it as the param(s) for the external API call.
@@ -32,14 +31,23 @@ const MultiSearch = (props) => {
   const params = finalParams();
 
   const handleMultiItemSearch = async () => {
+    setIsLoaded(false);
     try {
       const results = await axios.get(`https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${params}`);
       setRecipeSearchResults(results.data.drinks);
+      setIsLoaded(true);
     } catch (error) {
-      console.info(error);
+      setError(error);
+      setIsLoaded(true);
     }
-    // const results = await axios.get();
   };
+
+  // ! AXIOS REQUEST ! //
+  // useEffect(() => {
+  //   axios.get('/sip')
+  //     .then(data => setValidIngredients(data))
+  //     .catch(error => setError(error));
+  // }, []);
 
   const drinkMap = recipeSearchResults.map((drink) => {
     return (
@@ -58,8 +66,11 @@ const MultiSearch = (props) => {
             display: 'block',
             border: '2px solid ghostwhite',
             borderLeft: '0px',
+            width: '100%',
+            height: 'auto'
           }}
         />
+        {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
         <a
           style={{
             color: '#54e5ea',
@@ -80,8 +91,8 @@ const MultiSearch = (props) => {
   const handleClick = () => {
     try {
       handleMultiItemSearch();
-    } catch (err) {
-      console.info(err);
+    } catch (error) {
+      setError(error);
     }
   };
 
@@ -96,7 +107,13 @@ const MultiSearch = (props) => {
         SIP!
       </button>
       <div>
-        {drinkMap}
+        {
+          error ?
+            <div>Error: {error.message}</div> :
+            !isLoaded ?
+              <h1 style={{fontSize: '40px'}}>Loading...</h1> :
+              <div>{drinkMap}</div>
+        }
       </div>
     </div>
   );

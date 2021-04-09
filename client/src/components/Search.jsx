@@ -36,6 +36,8 @@ const SearchStyle = styled.div`
 const Search = () => {
   const [ searchFor, setSearchFor ] = useState('');
   const [ searchResults, setSearchResults ] = useState([]);
+  const [ isLoaded, setIsLoaded ] = useState(true);
+  const [ error, setError ] = useState(null);
 
 
   const handleChange = (e) => {
@@ -44,12 +46,15 @@ const Search = () => {
   };
 
   const handleSingleItemSearch = async () => {
+    setIsLoaded(false);
     try {
       const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
       console.info(result);
       setSearchResults(result.data.drinks);
+      setIsLoaded(true);
     } catch (error) {
-      console.info(error);
+      setError(error);
+      setIsLoaded(true);
     }
   };
 
@@ -57,7 +62,7 @@ const Search = () => {
     try {
       handleSingleItemSearch();
     } catch (error) {
-      console.info(error);
+      setError(error);
     }
   };
 
@@ -86,6 +91,8 @@ const Search = () => {
             display: 'block',
             border: '2px solid ghostwhite',
             borderLeft: '0px',
+            width: '100%',
+            height: 'auto'
           }}
         />
         <a
@@ -121,9 +128,13 @@ const Search = () => {
         >
           Get Recipes!
         </button>
-        <div className='search-result-container'>
-          {drinkMap}
-        </div>
+        {
+          error ?
+            <div>Error: {error.message}</div> :
+            !isLoaded ?
+              <div>Loading...</div> :
+              <div>{drinkMap}</div>
+        }
       </div>
     </SearchStyle>
   );
