@@ -16,13 +16,21 @@ const Ingredient = sequelize.define('Ingredient', {
 });
 
 const Recipe = sequelize.define('Recipe', {
+  recId: DataTypes.STRING,
   name: DataTypes.STRING,
-  recipe: DataTypes.STRING
+  category: DataTypes.STRING,
+  glass: DataTypes.STRING,
+  instruction: DataTypes.STRING(2000),
+  img: DataTypes.STRING,
+  ingredients: DataTypes.STRING
 });
 
 Ingredient.sync();
 Recipe.sync();
 User.sync();
+
+Ingredient.belongsToMany(Recipe, { through: 'RecipeIngredients' });
+Recipe.belongsToMany(Ingredient, { through: 'RecipeIngredients' });
 
 module.exports = {
   Ingredient,

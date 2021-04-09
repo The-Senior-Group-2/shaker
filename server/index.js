@@ -1,10 +1,13 @@
-const { default: axios } = require('axios');
+//const axios = require('axios');
 const { urlencoded } = require('express');
 const express = require('express');
 const path = require('path');
+const dotenv = require('dotenv');
+
 const clientPath = path.resolve(__dirname, '../client/dist');
-const { Ingredient, User, Recipe } = require('./database/index');
+const { Ingredient } = require('./database/index');
 const { getIngredients } = require('./api/index');
+const { possibleRecipes } = require('./barFilter/index');
 
 const app = express();
 
@@ -27,8 +30,15 @@ app.use('/', (req, res) => {
     });
 });
 
-app.get('/bar', (req, res) => {
-
+app.get('/sip', (req, res) => {
+  const { ingredients } = req.body;
+  possibleRecipes(ingredients).then(() => res.sendStatus(201));
 });
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.info(`started on port: http://127.0.0.1:${PORT}`);
+});
+
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
+});
