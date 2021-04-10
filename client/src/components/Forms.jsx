@@ -131,7 +131,7 @@ const Forms = () => {
               error ?
                 <div>Error: {error.message}</div> :
                 !isLoaded ?
-                  <h2 style={{fontSize: '40px'}}>Loading...</h2> :
+                  <h2 style={{fontSize: '20px'}}>Loading...</h2> :
                   <div>{strDescription}</div>
             }
           </div>

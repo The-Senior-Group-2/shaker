@@ -1,5 +1,5 @@
 // import React, { useState, useEffect } from 'react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -8,17 +8,17 @@ const RandomStyle = styled.div`
   color: ghostwhite;
   display: flex;
   flex-flow: column;
-  padding: 20%;
+  padding: 8%;
   width: 1100px;
   button, input{
     background: rgb(35, 35, 35);
     color: ghostwhite;
-    font-size: 14px;
+    font-size: 19px;
     width: fit-content;
-    padding: 0.25rem 0.75rem;
+    padding: 2rem 3rem;
     border: none;
     outline: none;
-    border-radius: 0.25rem;
+    border-radius: 65%;
     box-shadow: -1px -1px 2px rgba(100,100,100, 1), 1px 1px 1px rgba(0,0,0, 1);
     :active{
       box-shadow: -1px -1px 1px rgba(100,100,100, 1), 1px 1px 1px rgba(0,0,0, 1);
@@ -29,14 +29,24 @@ const RandomStyle = styled.div`
     }
   };
   h2{
-    color: cornflowerblue
+    color: cornflowerblue;
+    padding-left: 4%;
   };
-  td:ingredientTD{
+`;
+
+const RandomIngredientsStyle = styled.div`
+  th{
     vertical-align: top;
     border: 1px solid ghostwhite;
     align-items: normal;
-    padding-left: 5%;
-  }
+    /* padding-left: 4%; */
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    max-width: 100%;
+    padding: 2rem 2rem;
+    /* margin: auto; */
+  };
 `;
 
 
@@ -60,12 +70,12 @@ const Random = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const randomRec = fetchRandomDrink();
-  //   return () => {
-  //     setRandomRecipe(randomRec);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const randomRec = fetchRandomDrink();
+    return () => {
+      setRandomRecipe(randomRec);
+    };
+  }, []);
 
   const handleClick = () => {
     try {
@@ -74,12 +84,6 @@ const Random = () => {
       setError(error);
     }
   };
-
-  const recipeInstructions = randomRecipe.map(drink => {
-    const { strInstructions } = drink;
-    const strArray = strInstructions.split('. ');
-    console.info(strArray);
-  });
 
 
   const randomRecipeMap = randomRecipe.map(drink => {
@@ -95,7 +99,7 @@ const Random = () => {
             alignItems: 'center',
           }}
         >
-          <table style={{ width: '100%' }}>
+          <table style={{width: '100%'}}>
             <tbody>
               <tr>
                 <td style={{ width: '35%' }}>
@@ -105,7 +109,8 @@ const Random = () => {
                   style={{
                     width: '65%',
                     verticalAlign: 'top',
-                    paddingLeft: '5%'
+                    paddingLeft: '5%',
+                    justifyContent: 'center'
                   }}
                 >
                   <h2>Ingredients</h2>
@@ -138,82 +143,30 @@ const Random = () => {
                 >
                   <table style={{width: '100%'}}>
                     <tbody>
-                      <tr>
-                        <td
-                          className='ingredientTD'
-                          // style={{
-                          //   verticalAlign: 'top',
-                          //   border: '1px solid ghostwhite',
-                          //   alignItems: 'normal',
-                          //   paddingLeft: '5%'
-                          // }}
-                        >
-                          {/* <img src={add drink ingredient picture here}/> */}
-                          <p>{drink.strIngredient1}</p>
-                        </td>
-                        <td
-                          className='ingredientTD'
-                          // style={{
-                          //   verticalAlign: 'top',
-                          //   border: '1px solid ghostwhite',
-                          //   alignItems: 'normal',
-                          //   paddingLeft: '5%'
-                          // }}
-                        >
-                          {/* <img src={add drink ingredient picture here}/> */}
-                          <p>{drink.strIngredient2}</p>
-                        </td>
-                        <td
-                          className='ingredientTD'
-                          // style={{
-                          //   verticalAlign: 'top',
-                          //   border: '1px solid ghostwhite',
-                          //   alignItems: 'normal',
-                          //   paddingLeft: '5%'
-                          // }}
-                        >
-                          {/* <img src={add drink ingredient picture here}/> */}
-                          <p>{drink.strIngredient3}</p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          className='ingredientTD'
-                          // style={{
-                          //   verticalAlign: 'top',
-                          //   border: '1px solid ghostwhite',
-                          //   alignItems: 'normal',
-                          //   paddingLeft: '5%'
-                          // }}
-                        >
-                          {/* <img src={add drink ingredient picture here}/> */}
-                          <p>{drink.strIngredient4}</p>
-                        </td>
-                        <td
-                          className='ingredientTD'
-                          // style={{
-                          //   verticalAlign: 'top',
-                          //   border: '1px solid ghostwhite',
-                          //   alignItems: 'normal',
-                          //   paddingLeft: '5%'
-                          // }}
-                        >
-                          {/* <img src={add drink ingredient picture here}/> */}
-                          <p>{drink.strIngredient5}</p>
-                        </td>
-                        <td
-                          className='ingredientTD'
-                          // style={{
-                          //   verticalAlign: 'top',
-                          //   border: '1px solid ghostwhite',
-                          //   alignItems: 'normal',
-                          //   paddingLeft: '5%'
-                          // }}
-                        >
-                          {/* <img src={add drink ingredient picture here}/> */}
-                          <p>{drink.strIngredient6}</p>
-                        </td>
-                      </tr>
+                      <RandomIngredientsStyle>
+                        <tr>
+                          <td>
+                            <th>{drink.strIngredient1}</th>
+                          </td>
+                          <td>
+                            <th>{drink.strIngredient2}</th>
+                          </td>
+                          <td>
+                            <th>{drink.strIngredient3}</th>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <th>{drink.strIngredient4}</th>
+                          </td>
+                          <td>
+                            <th>{drink.strIngredient5}</th>
+                          </td>
+                          <td>
+                            <th>{drink.strIngredient6}</th>
+                          </td>
+                        </tr>
+                      </RandomIngredientsStyle>
                       <tr></tr>
                     </tbody>
                   </table><br />
@@ -221,34 +174,19 @@ const Random = () => {
               </tr>
             </tbody>
           </table>
-          <div
-            style={{
-              display: 'flex',
-              flexFlow: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingBottom: '5px'
-            }}
-          >
+          <div style={{paddingLeft: '3%', paddingBelow: '4%'}}>
             <h2
               // style={{paddingLeft: '3%'}}
-              // style={{
-              //   display: 'flex',
-              //   flexFlow: 'column',
-              //   alignItems: 'center',
-              //   justifyContent: 'center',
-              // }}
-            >Instructions</h2>
-            {/* {drink.strInstructions} */}
-            {
-              recipeInstructions.map((step, i) => {
-                return (
-                  <div key={i}>
-
-                  </div>
-                );
-              })
-            }
+            >
+              Instructions
+            </h2>
+            <p
+              style={{
+                paddingBottom: '3%'
+              }}
+            >
+              {drink.strInstructions}
+            </p>
           </div>
         </div>
       </RandomStyle>
@@ -263,13 +201,14 @@ const Random = () => {
           onClick={handleClick}
           className='random-btn'
         >
-          Shake!
+          {/* This is SoOo Random! */}
+          SHAKE!
         </button>
         {
           error ?
             <div>Error: {error.message}</div> :
             !isLoaded ?
-              <div style={{fontSize: '40px'}}>Loading...</div> :
+              <div style={{fontSize: '20px'}}>Loading...</div> :
               <div>{randomRecipeMap}</div>
         }
       </div>

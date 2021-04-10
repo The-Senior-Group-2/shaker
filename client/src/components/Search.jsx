@@ -136,7 +136,7 @@ const Search = () => {
           error ?
             <div>Error: {error.message}</div> :
             !isLoaded ?
-              <div style={{fontSize: '40px'}}>Loading...</div> :
+              <div style={{fontSize: '20px'}}>Loading...</div> :
               <div>{drinkMap}</div>
         }
       </div>
