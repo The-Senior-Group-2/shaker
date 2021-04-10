@@ -11,7 +11,7 @@ const SearchStyle = styled.div`
   column-width: auto;
   padding: 20%;
   width: 490px;
-  justifyContent: 'center';
+  justify-content: 'center';
   button, input{
     background: rgb(35, 35, 35);
     color: ghostwhite;
