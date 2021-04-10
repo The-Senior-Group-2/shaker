@@ -74,6 +74,7 @@ const Search = () => {
 
   // submit your search for list of drinks when enter key is pressed
   const handleKeyDown = (e) => {
+    e.preventDefault();
     const { key } = e;
     key === 'Enter' ?
       handleClick() :
