@@ -33,10 +33,6 @@ const FormStyles = styled.div`
   h3, h4{
     color: #50d6da;
   };
-  /* *{
-    flex-flow: column;
-    align-items: center;
-  } */
 `;
 
 // all the options for the select form
@@ -57,7 +53,8 @@ const liquors = [
 const Forms = () => {
   const [ liquor, setLiquor ] = useState({ strIngredient: '' });
   const [ liquorDescription, setLiquorDescription ] = useState({ strDescription: '' });
-  // const [ header, setHeader ] = useState('');
+  const [ isLoaded, setIsLoaded ] = useState(true);
+  const [ error, setError ] = useState(null);
 
   const { strDescription } = liquorDescription;
   const { strIngredient } = liquor;
@@ -72,12 +69,16 @@ const Forms = () => {
   // handles the state change when the Search button is clicked
   // also calls the external api to get the data which is then set to the current state of 'liquorDescription'
   const handleDescriptionChange = async () => {
+    setIsLoaded(false);
     try {
       const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${strIngredient}`, );
-      console.info(result);
+      setIsLoaded(true);
       setLiquorDescription({ strDescription: result.data.ingredients[0].strDescription });
     } catch (error) {
-      console.info(error);
+      if (error) {
+        setError(error);
+        setIsLoaded(true);
+      }
     }
   };
 
@@ -122,12 +123,18 @@ const Forms = () => {
             banner={`Information about ${strIngredient}:`}
             item={strIngredient}
           />
-          <p
+          <div
             name='strDescription'
             value={strDescription}
           >
-            {strDescription}
-          </p>
+            {
+              error ?
+                <div>Error: {error.message}</div> :
+                !isLoaded ?
+                  <h2 style={{fontSize: '40px'}}>Loading...</h2> :
+                  <div>{strDescription}</div>
+            }
+          </div>
         </div>
       </div>
     </FormStyles>

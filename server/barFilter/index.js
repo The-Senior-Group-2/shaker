@@ -1,5 +1,6 @@
 const { Recipe } = require('../database/index');
-const { recipeById, drinksByIngredient } = require('../api/index');
+const { recipeById, drinksByIngredient, getIngredients } = require('../api/index');
+const { Ingredient } = require('../database/index');
 
 const possibleRecipes = (ingredients) => {
   ingredients.forEach(ing => {
@@ -48,10 +49,18 @@ const addRecipeTodb = (recipe) => {
   });
 };
 
+const addIngredientsToDb = () => {
+  getIngredients()
+    .then(res => res.data.drinks.forEach(ing => {
+      Ingredient.create({ ingredient: ing.strIngredient1}).catch(err => { throw err; });
+    }));
+};
+
 //possibleRecipes(['Lemon', 'Gin', 'Lime', 'Grenadine']);
 
 module.exports = {
   possibleRecipes,
   createRecipe,
-  addRecipeTodb
+  addRecipeTodb,
+  addIngredientsToDb
 };

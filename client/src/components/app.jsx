@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import FormsContainer from './FormsContainer';
 import Search from './Search';
 import Bar from './Bar';
+import Random from './Random';
 
 const AppStyles = styled.div`
   display: flex;
@@ -34,6 +35,9 @@ class App extends Component {
         <br/>
         <div className='recipe-result'>
           <Bar />
+        </div>
+        <div>
+          <Random />
         </div>
       </AppStyles>
     );

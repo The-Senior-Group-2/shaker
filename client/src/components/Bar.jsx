@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+// import axios from 'axios';
 import styled from 'styled-components';
 
 import MultiSearch from './MultiSearch';
@@ -41,10 +42,27 @@ const BarStyle = styled.div`
 const Bar = () => {
   const [ ingredient, setIngredient ] = useState('');
   const [ ingredientsList, setIngredientsList ] = useState([]);
+
+
   // !! //
 
-  const [ isValid, setIsValid ] = useState(false);
-  const [ validIngredients, setValidIngredients ] = useState([]);
+  // const [ isValid, setIsValid ] = useState(false);
+  // const [ validIngredients, setValidIngredients ] = useState([]);
+
+
+  // const fetchValidIngredients = async () => {
+  //   try {
+  //     const res = await axios.get('/sip');
+  //     setValidIngredients(res.data);
+  //     console.info('Axios res:', res, 'validIngredients:', validIngredients);
+  //   } catch (error) {
+  //     console.info(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchValidIngredients();
+  // }, []);
 
   // !! //
 
@@ -56,15 +74,15 @@ const Bar = () => {
 
 
   const handleClick = async () => {
-    handleValidation()
-      .then(() => {
-        setIngredientsList((prevList) => {
-          return [ ...prevList, ingredient ];
-        });
-      })
-      .then(setIngredient(''))
-      .catch(error => console.info(error));
-    // await setIngredient('');
+    try {
+      // handleValidation();
+      await setIngredientsList((prevList) => {
+        return [ ...prevList, ingredient ];
+      });
+      setIngredient('');
+    } catch (error) {
+      console.info(error);
+    }
   };
 
   // Press enter key as an alternative to clicking the button
@@ -99,20 +117,20 @@ const Bar = () => {
 
   // !! //
 
-  useEffect(() => {
-    setValidIngredients(['gin', 'lime', 'tonic water']);
-  }, []);
+  // useEffect(() => {
+  //   setValidIngredients(['gin', 'lime', 'tonic water']);
+  // }, []);
 
 
-  const handleValidation = () => {
-    for (let i = 0; i < validIngredients.length; i++) {
-      if (ingredient !== validIngredients[i]) {
-        isValid;
-      } else {
-        setIsValid(true);
-      }
-    }
-  };
+  // const handleValidation = () => {
+  //   for (let i = 0; i < validIngredients.length; i++) {
+  //     if (ingredient !== validIngredients[i]) {
+  //       isValid;
+  //     } else {
+  //       setIsValid(true);
+  //     }
+  //   }
+  // };
 
   // !! //
 
@@ -132,11 +150,7 @@ const Bar = () => {
         >
         </input>
         <button
-          onClick={
-            isValid &&
-              handleClick
-
-          }
+          onClick={handleClick}
         >
           Add to Bar
         </button>

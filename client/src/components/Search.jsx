@@ -53,8 +53,10 @@ const Search = () => {
       setSearchResults(result.data.drinks);
       setIsLoaded(true);
     } catch (error) {
-      setError(error);
-      setIsLoaded(true);
+      if (error) {
+        setError(error);
+        setIsLoaded(true);
+      }
     }
   };
 
@@ -62,7 +64,9 @@ const Search = () => {
     try {
       handleSingleItemSearch();
     } catch (error) {
-      setError(error);
+      if (error) {
+        setError(error);
+      }
     }
   };
 
@@ -132,7 +136,7 @@ const Search = () => {
           error ?
             <div>Error: {error.message}</div> :
             !isLoaded ?
-              <div>Loading...</div> :
+              <div style={{fontSize: '40px'}}>Loading...</div> :
               <div>{drinkMap}</div>
         }
       </div>

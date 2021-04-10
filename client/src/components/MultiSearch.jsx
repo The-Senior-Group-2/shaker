@@ -14,6 +14,44 @@ const MultiSearch = (props) => {
   const searchParams = [...ingredientsList];
 
 
+  // !! //
+
+
+  // const [ validIngredients, setValidIngredients ] = useState([]);
+
+  // const addIngToDB = () => {
+  //   axios.get('www.thecocktaildb.com/api/json/v2/9973533/list.php?i=list')
+  //     .then(result => {
+  //       console.info(result.data);
+  //       axios.post('/sip', result);
+  //     })
+  //     .then((result) => {
+  //       setValidIngredients(result);
+  //     })
+  //     .catch(error => setError(error));
+  // };
+
+  // console.info(validIngredients);
+
+
+  // const fetchValidIngredients = () => {
+  //   axios.get('/sip')
+  //     .then((res) => res.getIngredient())
+
+  //   setValidIngredients(res.data);
+  //   console.info('Axios res:', res, 'validIngredients:', validIngredients);
+  //   console.info(error);
+  // };
+
+  // useEffect(() => {
+  //   fetchValidIngredients();
+  //   // addIngToDB();
+  // }, []);
+
+
+  // !! //
+
+
   // finalParams will use a state prop from the Bar component to process
   // the data in order to pass it as the param(s) for the external API call.
   // First it checks the length of the props clone (an error is thrown if
@@ -37,17 +75,12 @@ const MultiSearch = (props) => {
       setRecipeSearchResults(results.data.drinks);
       setIsLoaded(true);
     } catch (error) {
-      setError(error);
-      setIsLoaded(true);
+      if (error) {
+        setError(error);
+        setIsLoaded(true);
+      }
     }
   };
-
-  // ! AXIOS REQUEST ! //
-  // useEffect(() => {
-  //   axios.get('/sip')
-  //     .then(data => setValidIngredients(data))
-  //     .catch(error => setError(error));
-  // }, []);
 
   const drinkMap = recipeSearchResults.map((drink) => {
     return (
@@ -70,7 +103,6 @@ const MultiSearch = (props) => {
             height: 'auto'
           }}
         />
-        {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
         <a
           style={{
             color: '#54e5ea',
@@ -92,7 +124,9 @@ const MultiSearch = (props) => {
     try {
       handleMultiItemSearch();
     } catch (error) {
-      setError(error);
+      if (error) {
+        setError(error);
+      }
     }
   };
 
