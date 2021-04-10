@@ -1,4 +1,3 @@
-// import React, { useState, useEffect } from 'react';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -39,20 +38,16 @@ const RandomIngredientsStyle = styled.div`
     vertical-align: top;
     border: 1px solid ghostwhite;
     align-items: normal;
-    /* padding-left: 4%; */
     display: flex;
     align-items: top;
     justify-content: center;
     max-width: 100%;
     padding: 2rem 2rem;
-    /* margin: auto; */
   };
 `;
 
 
 const Random = () => {
-
-  // const [ isClicked, setIsClicked ] = useState(false);
   const [ isLoaded, setIsLoaded ] = useState(true);
   const [ error, setError ] = useState(null);
   const [ randomRecipe, setRandomRecipe ] = useState([]);
@@ -215,10 +210,5 @@ const Random = () => {
     </RandomStyle>
   );
 };
-
-
-
-
-
 
 export default Random;

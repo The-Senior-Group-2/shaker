@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
 import styled from 'styled-components';
 
 import MultiSearch from './MultiSearch';
-// import Recipe from './Recipe';
 import ConditionalBannerH4 from './ConditionalBannerH4';
 
 // Styling
@@ -44,29 +42,6 @@ const Bar = () => {
   const [ ingredientsList, setIngredientsList ] = useState([]);
 
 
-  // !! //
-
-  // const [ isValid, setIsValid ] = useState(false);
-  // const [ validIngredients, setValidIngredients ] = useState([]);
-
-
-  // const fetchValidIngredients = async () => {
-  //   try {
-  //     const res = await axios.get('/sip');
-  //     setValidIngredients(res.data);
-  //     console.info('Axios res:', res, 'validIngredients:', validIngredients);
-  //   } catch (error) {
-  //     console.info(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchValidIngredients();
-  // }, []);
-
-  // !! //
-
-
   const handleChange = (e) => {
     const { value } = e.target;
     setIngredient(value);
@@ -75,7 +50,6 @@ const Bar = () => {
 
   const handleClick = async () => {
     try {
-      // handleValidation();
       await setIngredientsList((prevList) => {
         return [ ...prevList, ingredient ];
       });
@@ -113,28 +87,6 @@ const Bar = () => {
       });
     return compileListEntries;
   };
-
-
-  // !! //
-
-  // useEffect(() => {
-  //   setValidIngredients(['gin', 'lime', 'tonic water']);
-  // }, []);
-
-
-  // const handleValidation = () => {
-  //   for (let i = 0; i < validIngredients.length; i++) {
-  //     if (ingredient !== validIngredients[i]) {
-  //       isValid;
-  //     } else {
-  //       setIsValid(true);
-  //     }
-  //   }
-  // };
-
-  // !! //
-
-
 
 
   return (

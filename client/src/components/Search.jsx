@@ -45,6 +45,7 @@ const Search = () => {
     setSearchFor(value);
   };
 
+
   const handleSingleItemSearch = async () => {
     setIsLoaded(false);
     try {
@@ -59,6 +60,7 @@ const Search = () => {
       }
     }
   };
+
 
   const handleClick = () => {
     try {
@@ -77,6 +79,7 @@ const Search = () => {
       handleClick() :
       null;
   };
+
 
   const drinkMap = searchResults.map((drink) => {
     return (

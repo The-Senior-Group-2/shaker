@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-// import Recipe from './Recipe';
-
 
 const MultiSearch = (props) => {
   const [ recipeSearchResults, setRecipeSearchResults ] = useState([]);
@@ -12,45 +10,6 @@ const MultiSearch = (props) => {
 
   const { ingredientsList } = props;
   const searchParams = [...ingredientsList];
-
-
-  // !! //
-
-
-  // const [ validIngredients, setValidIngredients ] = useState([]);
-
-  // const addIngToDB = () => {
-  //   axios.get('www.thecocktaildb.com/api/json/v2/9973533/list.php?i=list')
-  //     .then(result => {
-  //       console.info(result.data);
-  //       axios.post('/sip', result);
-  //     })
-  //     .then((result) => {
-  //       setValidIngredients(result);
-  //     })
-  //     .catch(error => setError(error));
-  // };
-
-  // console.info(validIngredients);
-
-
-  // const fetchValidIngredients = () => {
-  //   axios.get('/sip')
-  //     .then((res) => res.getIngredient())
-
-  //   setValidIngredients(res.data);
-  //   console.info('Axios res:', res, 'validIngredients:', validIngredients);
-  //   console.info(error);
-  // };
-
-  // useEffect(() => {
-  //   fetchValidIngredients();
-  //   // addIngToDB();
-  // }, []);
-
-
-  // !! //
-
 
   // finalParams will use a state prop from the Bar component to process
   // the data in order to pass it as the param(s) for the external API call.
@@ -113,8 +72,6 @@ const MultiSearch = (props) => {
           href={`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`}
           rel='noreferrer'
           target='_blank'
-          // name={drink.strDrink}
-          // id={drink.idDrink}
         >{drink.strDrink}</a>
       </div>
     );
