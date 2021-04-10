@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import FormsContainer from './FormsContainer';
 import Search from './Search';
+// import Play from './Play';
 import Bar from './Bar';
 import Random from './Random';
 
@@ -31,6 +32,7 @@ class App extends Component {
         <br/>
         <div className='recipe-search'>
           <Search />
+          {/* <Play /> */}
         </div>
         <br/>
         <div className='recipe-result'>

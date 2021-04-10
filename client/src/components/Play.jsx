@@ -3,6 +3,9 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 
+import RecipeView from './RecipeView';
+
+
 const SearchStyle = styled.div`
   background: inherit;
   color: ghostwhite;
@@ -11,7 +14,6 @@ const SearchStyle = styled.div`
   column-width: auto;
   padding: 20%;
   width: 490px;
-  justifyContent: 'center';
   button, input{
     background: rgb(35, 35, 35);
     color: ghostwhite;
@@ -33,9 +35,19 @@ const SearchStyle = styled.div`
 `;
 
 
+
 const Search = () => {
   const [ searchFor, setSearchFor ] = useState('');
   const [ searchResults, setSearchResults ] = useState([]);
+  const [ isLoaded, setIsLoaded ] = useState(true);
+  const [ error, setError ] = useState('');
+
+  const [id, setId] = useState(0);
+  const [recipeToRender, setRecipeToRender] = useState([]);
+
+  // useEffect(() => {
+
+  // }, [id]);
 
 
   const handleChange = (e) => {
@@ -45,29 +57,76 @@ const Search = () => {
 
 
   const handleSingleItemSearch = async () => {
-    const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
-    console.info(result);
-    setSearchResults(result.data.drinks);
+    setIsLoaded(false);
+    try {
+      const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
+      console.info(result);
+      setSearchResults(result.data.drinks);
+      setIsLoaded(true);
+    } catch (error) {
+      if (error) {
+        setError(error);
+        setIsLoaded(true);
+      }
+    }
   };
 
 
   const handleClick = () => {
     try {
-      handleSingleItemSearch();
-    } catch (err) {
-      console.info(err);
+      !searchFor ?
+        <div>Please enter an ingredient</div> :
+        handleSingleItemSearch();
+    } catch (error) {
+      setError({message: 'Please enter an ingredient'});
     }
   };
 
-
   // submit your search for list of drinks when enter key is pressed
   const handleKeyDown = (e) => {
+    e.preventDefault();
     const { key } = e;
     key === 'Enter' ?
       handleClick() :
       null;
   };
 
+  const handleRecipeClick = async (e) => {
+    const { target } = e;
+    setId(target.id);
+    try {
+      getRecipeView();
+    } catch (err) {
+      setError(err);
+    }
+  };
+
+  const getRecipeView = async () => {
+    // this will make api call to get full recipe details using id
+    // axios.get(url with dynamic id attatched to end)
+    setIsLoaded(false);
+    try {
+      const result = await axios.get(`www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+      await setRecipeToRender(result.data.drinks);
+      setIsLoaded(true);
+      console.info(recipeToRender);
+
+    } catch (err) {
+      setIsLoaded(true);
+      setError(err);
+    }
+    // return renderRecipeView();
+  };
+
+  const renderRecipeView = () => {
+    return (
+      <RecipeView
+        recipe={recipeToRender}
+        loaded={isLoaded}
+        err={error}
+      />
+    );
+  };
 
   const drinkMap = searchResults.map((drink) => {
     return (
@@ -90,18 +149,15 @@ const Search = () => {
             height: 'auto'
           }}
         />
-        {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
-        <a
-          style={{
-            color: '#54e5ea',
-            paddingLeft: '7%',
-            fontSize: '28px',
-            alignContent: 'center'
-          }}
-          href={`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`}
-          rel='noreferrer'
-          target='_blank'
-        >{drink.strDrink}</a>
+        <p>{drink.strDrink}</p>
+        <button
+          id={drink.idDrink}
+          onClick={handleRecipeClick}
+        >
+          Recipe
+        </button>
+        <div value={renderRecipeView}>
+        </div>
       </div>
     );
   });
@@ -124,13 +180,18 @@ const Search = () => {
         >
           Get Recipes!
         </button>
-        <div className='search-result-container'>
-          {drinkMap}
+        <div>
+          {
+            error ?
+              <div>Error: {error.message}</div> :
+              !isLoaded ?
+                <div style={{fontSize: '20px'}}>Loading...</div> :
+                <div>{drinkMap}</div>
+          }
         </div>
       </div>
     </SearchStyle>
   );
 };
-
 
 export default Search;

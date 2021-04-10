@@ -87,7 +87,7 @@ const Random = () => {
           error ?
             <div>Error: {error.message}</div> :
             !isLoaded ?
-              <div style={{fontSize: '20px'}}>Loading...</div> :
+              <div style={{fontSize: '20px', marginLeft: '25%'}}>Loading...</div> :
               <RecipeView
                 recipe={randomRecipe}
                 loaded={isLoaded}

@@ -91,7 +91,7 @@ const RecipeView = (props) => {
             alignItems: 'center',
           }}
         >
-          <table style={{width: '100%'}}>
+          <table style={{ width: '100%' }}>
             <tbody>
               <tr>
                 <td style={{ width: '35%' }}>
@@ -132,7 +132,7 @@ const RecipeView = (props) => {
                     verticalAlign: 'top'
                   }}
                 >
-                  <table style={{width: '100%'}}>
+                  <table style={{ width: '100%' }}>
                     <tbody>
                       <RecipeIngredientsStyle>
                         <tr>
