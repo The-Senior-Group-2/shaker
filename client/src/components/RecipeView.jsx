@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 
-
+// Styling
 const RecipeStyle = styled.div`
   background: inherit;
   color: ghostwhite;
@@ -58,6 +58,8 @@ const RecipeView = (props) => {
   const [ error, setError ] = useState('');
 
   const { recipe, loaded, err } = props;
+
+  // set the states when the component initially mounts
   useEffect(() => {
     return () => {
       setRecipeToRender(recipe);
@@ -76,7 +78,7 @@ const RecipeView = (props) => {
     };
   }, [err]);
 
-
+  // map out the recipe array
   const recipeMap = recipeToRender.map(drink => {
     return (
       <RecipeStyle
@@ -106,7 +108,6 @@ const RecipeView = (props) => {
                   <h2>Ingredients</h2>
                 </td>
               </tr>
-
               <tr>
                 <td
                   style={{
@@ -139,21 +140,64 @@ const RecipeView = (props) => {
                             <th>{drink.strIngredient1}</th>
                           </td>
                           <td>
-                            <th>{drink.strIngredient2}</th>
+                            {
+                              drink.strIngredient2 ?
+                                <th>{drink.strIngredient2}</th> :
+                                null
+                            }
                           </td>
                           <td>
-                            <th>{drink.strIngredient3}</th>
+                            {
+                              drink.strIngredient3 ?
+                                <th>{drink.strIngredient3}</th> :
+                                null
+                            }
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            <th>{drink.strIngredient4}</th>
+                            {
+                              drink.strIngredient4 ?
+                                <th>{drink.strIngredient4}</th> :
+                                null
+                            }
                           </td>
                           <td>
-                            <th>{drink.strIngredient5}</th>
+                            {
+                              drink.strIngredient5 ?
+                                <th>{drink.strIngredient5}</th> :
+                                null
+                            }
                           </td>
                           <td>
-                            <th>{drink.strIngredient6}</th>
+                            {
+                              drink.strIngredient6 ?
+                                <th>{drink.strIngredient6}</th> :
+                                null
+                            }
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            {
+                              drink.strIngredient7 ?
+                                <th>{drink.strIngredient7}</th> :
+                                null
+                            }
+                          </td>
+                          <td>
+                            {
+                              drink.strIngredient8 ?
+                                <th>{drink.strIngredient8}</th> :
+                                null
+                            }
+                          </td>
+                          <td>
+                            {
+                              drink.strIngredient9 ?
+                                <th>{drink.strIngredient9}</th> :
+                                null
+                            }
                           </td>
                         </tr>
                       </RecipeIngredientsStyle>
@@ -175,6 +219,7 @@ const RecipeView = (props) => {
     );
   });
 
+  // return dynamically
   return (
     <div>
       {

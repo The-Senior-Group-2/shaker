@@ -11,6 +11,7 @@ const RandomStyle = styled.div`
   flex-flow: column;
   padding: 8%;
   width: 1100px;
+  height: 100%;
   button, input{
     background: rgb(35, 35, 35);
     color: ghostwhite;
@@ -58,6 +59,10 @@ const Random = () => {
     return () => {
       setRandomRecipe(randomRec);
     };
+  }, []);
+
+  useEffect(() => {
+    setIsLoaded(true);
   }, []);
 
   const handleClick = () => {
