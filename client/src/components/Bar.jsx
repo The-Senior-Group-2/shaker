@@ -66,9 +66,9 @@ const Bar = () => {
   };
 
 
-  // IngredientsMapComponent filters out any item that is an empty string as a result
-  // of the user clicking button with nothing inside the input field. When this occurs
-  // the empty string is never rendered to the page, but it is still added to the
+  // IngredientsMapComponent filters out any empty string, which is added as a result
+  // of the user clicking button with an empty input field. When this occurs the empty
+  // string won't be rendered to the page either way, but it is still added to the
   // ingredientsList, and must be removed in order to correctly pass items to api call.
   // The function then creates a list entry for the newly added ingredient.
   const IngredientsMapComponent = () => {
@@ -120,7 +120,7 @@ const Bar = () => {
         <br />
         <br />
         <ConditionalBannerH4
-          banner='Press the SIP button to see what you can make!'
+          banner="Tap the SIP button when you're done!"
           item={ingredientsList}
         />
         <div>

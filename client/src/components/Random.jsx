@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import RecipeView from './RecipeView';
+import ToggleSwitch from './ToggleSwitch';
 
 const RandomStyle = styled.div`
   background: inherit;
@@ -41,6 +42,10 @@ const Random = () => {
   const [ error, setError ] = useState('');
   const [ randomRecipe, setRandomRecipe ] = useState([]);
 
+  // 10
+  const [tenRandom, setTenRandom] = useState([]);
+  const [ switched, setSwitched ] = useState(false);
+
 
   const fetchRandomDrink = async () => {
     setIsLoaded(false);
@@ -54,10 +59,52 @@ const Random = () => {
     }
   };
 
+  // !!!
+  // 10
+  const fetchTenRandomDrinks = async () => {
+    setIsLoaded(false);
+    try {
+      const result = await axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/randomselection.php');
+      setIsLoaded(true);
+      setTenRandom(result.data.drinks);
+    } catch (error) {
+      setIsLoaded(true);
+      setError(error);
+    }
+  };
+
   useEffect(() => {
-    const randomRec = fetchRandomDrink();
+    const randomRec = fetchTenRandomDrinks();
     return () => {
       setRandomRecipe(randomRec);
+    };
+  }, []);
+
+  const handleSwitch = (e) => {
+    const { checked } = e.target;
+    setSwitched(checked);
+  };
+
+  const tenMap = tenRandom.map((drinkObj, i) => {
+    return (
+      <RecipeView
+        key={i}
+        recipe={[drinkObj]}
+        loaded={isLoaded}
+        err={error}
+      />
+    );
+  });
+  // 10
+  // !!!
+
+  useEffect(() => {
+    const randomTen = fetchTenRandomDrinks();
+    const randomRec = fetchRandomDrink();
+    return () => {
+      !switched ?
+        setRandomRecipe(randomRec) :
+        setTenRandom(randomTen);
     };
   }, []);
 
@@ -67,33 +114,44 @@ const Random = () => {
 
   const handleClick = () => {
     try {
-      fetchRandomDrink();
+      !switched ?
+        fetchRandomDrink() :
+        fetchTenRandomDrinks();
     } catch (error) {
       setError(error);
     }
   };
 
+
   return (
     <RandomStyle>
       <div>
-        <button
-          onClick={handleClick}
-          className='random-btn'
-        >
-          {/* This is SoOo Random! */}
-          SHAKE!
-        </button>
-        {
-          error ?
-            <div>Error: {error.message}</div> :
-            !isLoaded ?
-              <div style={{fontSize: '20px', marginLeft: '25%'}}>Loading...</div> :
-              <RecipeView
-                recipe={randomRecipe}
-                loaded={isLoaded}
-                err={error}
-              />
-        }
+        <div>
+          <ToggleSwitch
+            label='x10'
+            handler={handleSwitch}
+          />
+          <button
+            onClick={handleClick}
+            className='random-btn'
+          >
+            {/* This is SoOo Random! */}
+            SHAKE!
+          </button>
+          {
+            error ?
+              <div>Error: {error.message}</div> :
+              !isLoaded ?
+                <div style={{fontSize: '20px', marginLeft: '25%'}}>Loading...</div> :
+                !switched ?
+                  <RecipeView
+                    recipe={randomRecipe}
+                    loaded={isLoaded}
+                    err={error}
+                  /> :
+                  <div>{tenMap}</div>
+          }
+        </div>
       </div>
     </RandomStyle>
   );

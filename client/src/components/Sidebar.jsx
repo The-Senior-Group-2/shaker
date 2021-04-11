@@ -1,32 +1,30 @@
 // import React, { useState } from 'react';
-// // import React from 'react';
 
-// import Checkbox from './Checkbox';
+// import ToggleSwitch from './ToggleSwitch';
+
 
 // const Sidebar = () => {
-//   const [ isChecked, setIsChecked ] = useState(false);
-//   // const [ className, setClassName ] = useState('');
 
 
-
-//   const handleCheckboxChange = (e) => {
-//     const { checked } = e.target;
-//     setIsChecked(checked);
-//     // setClassName(className);
-//   };
-
-//   return (
-//     <div>
-//       <label>
-
-//         <span>Label text</span>
-//       </label>
-//     </div>
-//   );
 // };
 
 
 
-
-
 // export default Sidebar;
+
+
+
+
+
+
+
+
+// function importAll(r) {
+//   let images = {};
+//   r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+//   return images;
+// }
+
+// const images = importAll(require.context('./images', false, /\.(png|jpe?g|svg)$/));
+
+// <img src={images['doggy.png']} />
