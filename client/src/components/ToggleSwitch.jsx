@@ -10,16 +10,16 @@ const ToggleStyle = styled.div`
   .toggle{
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 17px;
+    width: 74px;
+    height: 35px;
     background-color: #ef7b7b;
     border-radius: 30px;
     border: 2px solid ghostwhite;
     ::after{
       content: '';
       position: absolute;
-      width: 15px;
-      height: 15px;
+      width: 33px;
+      height: 33px;
       border-radius: 50%;
       background-color: ghostwhite;
       top: 1px;
@@ -31,7 +31,7 @@ const ToggleStyle = styled.div`
     font-weight: bold;
   };
   .checkbox:checked + .toggle::after{
-    left: 24px;
+    left: 40px;
   };
   .checkbox:checked + .toggle{
     background-color: #85ef85;
@@ -40,8 +40,8 @@ const ToggleStyle = styled.div`
     display: none;
   }
   label{
-    top: 2px;
-    left: 4px;
+    top: 3px;
+    left: 5px;
   }
 `;
 
@@ -52,7 +52,7 @@ const ToggleSwitch = (props) => {
 
   return (
     <div>
-      <label style={{alignContent: 'center'}}>{label}</label>
+      <label>{label}</label>
       <ToggleStyle>
         <input
           type='checkbox'
@@ -70,13 +70,7 @@ const ToggleSwitch = (props) => {
 };
 
 
-
-
-
-
 export default ToggleSwitch;
-
-
 
 ToggleSwitch.propTypes = {
   label: PropTypes.string.isRequired,

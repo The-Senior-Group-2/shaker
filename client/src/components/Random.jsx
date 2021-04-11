@@ -59,8 +59,7 @@ const Random = () => {
     }
   };
 
-  // !!!
-  // 10
+  // get 10 random cocktails
   const fetchTenRandomDrinks = async () => {
     setIsLoaded(false);
     try {
@@ -95,8 +94,6 @@ const Random = () => {
       />
     );
   });
-  // 10
-  // !!!
 
   useEffect(() => {
     const randomTen = fetchTenRandomDrinks();
@@ -127,15 +124,21 @@ const Random = () => {
     <RandomStyle>
       <div>
         <div>
-          <ToggleSwitch
-            label='x10'
-            handler={handleSwitch}
-          />
+          <div
+            style={{
+              paddingLeft: '3%',
+              paddingBottom: '2%'
+            }}
+          >
+            <ToggleSwitch
+              label='x10'
+              handler={handleSwitch}
+            />
+          </div>
           <button
             onClick={handleClick}
             className='random-btn'
           >
-            {/* This is SoOo Random! */}
             SHAKE!
           </button>
           {
