@@ -10,7 +10,9 @@ const RandomStyle = styled.div`
   color: ghostwhite;
   display: flex;
   flex-flow: column;
-  padding: 8%;
+  padding-left: 22%;
+  padding-bottom: 100%;
+  padding-top: 10%;
   width: 1100px;
   height: 100%;
   button, input{

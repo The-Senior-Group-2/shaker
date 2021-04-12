@@ -253,7 +253,11 @@ const RecipeView = (props) => {
             </tr>
           </tbody>
         </table>
-        <div style={{paddingLeft: '3%', paddingBelow: '4%'}}>
+        <div
+          style={{
+            paddingLeft: '3%',
+            paddingBelow: '4%'
+          }}>
           <h2>Instructions</h2>
           <p style={{ paddingBottom: '3%' }}>
             {drink.strInstructions}
