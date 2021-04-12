@@ -27,9 +27,6 @@ const ToggleStyle = styled.div`
       transition: all 0.35s;
     };
   };
-  p{
-    font-weight: bold;
-  };
   .checkbox:checked + .toggle::after{
     left: 40px;
   };
@@ -39,9 +36,10 @@ const ToggleStyle = styled.div`
   .checkbox{
     display: none;
   }
-  label{
+  .toggle{
     top: 3px;
     left: 5px;
+    font-size: 28px;
   }
 `;
 
@@ -52,7 +50,13 @@ const ToggleSwitch = (props) => {
 
   return (
     <div>
-      <label>{label}</label>
+      <label
+        style={{
+          fontSize: '22px',
+          paddingLeft: '23px'
+        }}>
+        {label}
+      </label>
       <ToggleStyle>
         <input
           type='checkbox'
