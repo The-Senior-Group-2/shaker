@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
-
 const SearchStyle = styled.div`
   background: inherit;
   color: ghostwhite;
@@ -11,6 +9,7 @@ const SearchStyle = styled.div`
   column-width: auto;
   padding: 20%;
   width: 490px;
+  justify-content: 'center';
   button, input{
     background: rgb(35, 35, 35);
     color: ghostwhite;
@@ -29,30 +28,19 @@ const SearchStyle = styled.div`
       box-shadow: -2px -2px 6px rgba(100,100,100, 1), 3px 3px 4px rgba(0,0,0, 1);
     }
   };
-  /* *{
-    flex-flow: column;
-    align-items: center;
-  } */
 `;
-
-
-
 const Search = () => {
   const [ searchFor, setSearchFor ] = useState('');
   const [ searchResults, setSearchResults ] = useState([]);
-
-
   const handleChange = (e) => {
     const { value } = e.target;
     setSearchFor(value);
   };
-
   const handleSingleItemSearch = async () => {
     const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
     console.info(result);
     setSearchResults(result.data.drinks);
   };
-
   const handleClick = () => {
     try {
       handleSingleItemSearch();
@@ -103,8 +91,6 @@ const Search = () => {
       </div>
     );
   });
-
-
   return (
     <SearchStyle>
       <div>
@@ -129,5 +115,4 @@ const Search = () => {
     </SearchStyle>
   );
 };
-
 export default Search;
