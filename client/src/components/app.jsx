@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import NavBar from './Navbar.jsx';
 import styled from 'styled-components';
-
-import FormsContainer from './FormsContainer';
-import Search from './Search';
-import Bar from './Bar';
+import { BrowserRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+// import FormsContainer from './FormsContainer';
+// import Search from './Search';
+// import Bar from './Bar';
 
 const AppStyles = styled.div`
   display: flex;
@@ -22,20 +23,14 @@ class App extends Component {
   render() {
 
     return (
-      <AppStyles>
-        <div className='forms-container'>
-          {/* <h1>Shaker</h1> */}
-          <FormsContainer />
-        </div>
-        <br/>
-        <div className='recipe-search'>
-          <Search />
-        </div>
-        <br/>
-        <div className='recipe-result'>
-          <Bar />
-        </div>
-      </AppStyles>
+      <BrowserRouter>
+        <AppStyles>
+          <div>
+            <NavBar/>
+          </div>
+        </AppStyles>
+      </BrowserRouter>
+
     );
   }
 }

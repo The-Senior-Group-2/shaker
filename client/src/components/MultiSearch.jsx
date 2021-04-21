@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
-// import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
-// import Recipe from './Recipe';
-
-
 const MultiSearch = (props) => {
   const [ recipeSearchResults, setRecipeSearchResults ] = useState([]);
-  // const [ recipeIsFav, setRecipeIsFav ] = useState(false);
-
+  const [ isLoaded, setIsLoaded ] = useState(true);
+  const [ error, setError ] = useState(null);
   const { ingredientsList } = props;
   const searchParams = [...ingredientsList];
-
-  // const [ recipes, setRecipes ] = useState();
-
   // finalParams will use a state prop from the Bar component to process
   // the data in order to pass it as the param(s) for the external API call.
   // First it checks the length of the props clone (an error is thrown if
@@ -30,15 +22,19 @@ const MultiSearch = (props) => {
     }
   };
   const params = finalParams();
-  console.info('PARAMS PASSED TO API CALL:', params);
-  // console.info('ingredientsList:', ingredientsList, 'searchParams:', searchParams, 'finalParams:', finalParams());
-
   const handleMultiItemSearch = async () => {
-    const results = await axios.get();
-    console.info('RESULTS.DATA FROM API:', results.data.drinks);
-    setRecipeSearchResults(results.data.drinks);
+    setIsLoaded(false);
+    try {
+      const results = await axios.get(`https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${params}`);
+      setRecipeSearchResults(results.data.drinks);
+      setIsLoaded(true);
+    } catch (error) {
+      if (error) {
+        setError(error);
+        setIsLoaded(true);
+      }
+    }
   };
-
   const drinkMap = recipeSearchResults.map((drink) => {
     return (
       <div
@@ -56,29 +52,33 @@ const MultiSearch = (props) => {
             display: 'block',
             border: '2px solid ghostwhite',
             borderLeft: '0px',
+            width: '100%',
+            height: 'auto'
           }}
         />
-        {/* CHANGE TO <a> TAG WITH APPROPRIATE HREF */}
-        <p
+        <a
           style={{
             color: '#54e5ea',
             paddingLeft: '7%',
             fontSize: '28px',
             alignContent: 'center'
           }}
-        >{drink.strDrink}</p>
+          href={`https://www.thecocktaildb.com/drink/${drink.idDrink}-${drink.strDrink}`}
+          rel='noreferrer'
+          target='_blank'
+        >{drink.strDrink}</a>
       </div>
     );
   });
-
   const handleClick = () => {
     try {
       handleMultiItemSearch();
-    } catch (err) {
-      console.info(err);
+    } catch (error) {
+      if (error) {
+        setError(error);
+      }
     }
   };
-
   return (
     <div>
       <button
@@ -90,15 +90,18 @@ const MultiSearch = (props) => {
         SIP!
       </button>
       <div>
-        {drinkMap}
+        {
+          error ?
+            <div>Error: {error.message}</div> :
+            !isLoaded ?
+              <h1 style={{fontSize: '20px'}}>Loading...</h1> :
+              <div>{drinkMap}</div>
+        }
       </div>
     </div>
   );
 };
-
 MultiSearch.propTypes = {
   ingredientsList: PropTypes.array.isRequired,
 };
-
-
 export default MultiSearch;
