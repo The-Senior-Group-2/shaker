@@ -1,3 +1,4 @@
+//const axios = require('axios');
 const { urlencoded } = require('express');
 const express = require('express');
 const path = require('path');
@@ -59,6 +60,9 @@ app.get('/logout', (req, res) => {
 });
 
 const clientPath = path.resolve(__dirname, '../client/dist');
+const { Ingredient } = require('./database/index');
+const { getIngredients } = require('./api/index');
+const { possibleRecipes } = require('./barFilter/index');
 
 //const app = express();
 
@@ -68,6 +72,23 @@ app.use(urlencoded({extended: true}));
 
 app.use('/', express.static(clientPath));
 
+app.use('/', (req, res) => {
+  Ingredient.findAll().
+    then(data => {
+      if (!data) {
+        getIngredients()
+          .then(response => {
+            response.data.forEach(ing => Ingredient.create( {ingredient: ing.strIngredient1}));
+          });
+      }
+      res.sendStatus(201);
+    });
+});
+
+app.get('/sip', (req, res) => {
+  const { ingredients } = req.body;
+  possibleRecipes(ingredients).then(() => res.sendStatus(201));
+});
 
 app.listen(PORT, () => {
   console.info(`started on port: http://localhost:${PORT}`);
