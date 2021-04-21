@@ -40,7 +40,7 @@ const recipeById = (id) => {
       'x-rapidapi-host': 'the-cocktail-db.p.rapidapi.com'
     }
   };
-  
+
   return axios.request(options);
 };
 

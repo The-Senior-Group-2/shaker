@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
-
 const SearchStyle = styled.div`
   background: inherit;
   color: ghostwhite;
@@ -32,24 +30,20 @@ const SearchStyle = styled.div`
   };
 `;
 
-
 const Search = () => {
   const [ searchFor, setSearchFor ] = useState('');
   const [ searchResults, setSearchResults ] = useState([]);
-
-
   const handleChange = (e) => {
     const { value } = e.target;
     setSearchFor(value);
   };
 
-
   const handleSingleItemSearch = async () => {
-    const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
+    const result = await axios.get(`/${searchFor}`);
+    // const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
     console.info(result);
     setSearchResults(result.data.drinks);
   };
-
 
   const handleClick = () => {
     try {
@@ -59,7 +53,6 @@ const Search = () => {
     }
   };
 
-
   // submit your search for list of drinks when enter key is pressed
   const handleKeyDown = (e) => {
     const { key } = e;
@@ -67,7 +60,6 @@ const Search = () => {
       handleClick() :
       null;
   };
-
 
   const drinkMap = searchResults.map((drink) => {
     return (
@@ -105,8 +97,6 @@ const Search = () => {
       </div>
     );
   });
-
-
   return (
     <SearchStyle>
       <div>
@@ -131,6 +121,5 @@ const Search = () => {
     </SearchStyle>
   );
 };
-
 
 export default Search;

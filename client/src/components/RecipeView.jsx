@@ -85,14 +85,7 @@ const RecipeView = (props) => {
   // map out the recipe array
   const recipeMap = recipeToRender.map(drink => {
     return (
-      <RecipeStyle
-        key={drink.idDrink}
-        style={{
-          border: '2px solid ghostwhite',
-          margin: '5%',
-          alignItems: 'center',
-        }}
-      >
+      <RecipeStyle key={drink.idDrink} style={{ border: '2px solid ghostwhite', margin: '5%', alignItems: 'center' }}>
         <table style={{ width: '100%' }}>
           <tbody>
             <tr>
@@ -257,11 +250,14 @@ const RecipeView = (props) => {
           style={{
             paddingLeft: '3%',
             paddingBelow: '4%'
-          }}>
-          <h2>Instructions</h2>
-          <p style={{ paddingBottom: '3%' }}>
-            {drink.strInstructions}
-          </p>
+          }}
+        >
+          <div style={{paddingLeft: '3%', paddingBelow: '4%'}}>
+            <h2>Instructions</h2>
+            <p style={{ paddingBottom: '3%' }}>
+              {drink.strInstructions}
+            </p>
+          </div>
         </div>
       </RecipeStyle>
     );

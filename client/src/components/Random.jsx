@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
 import RecipeView from './RecipeView';
 import ToggleSwitch from './ToggleSwitch';
 
@@ -13,6 +12,7 @@ const RandomStyle = styled.div`
   padding-left: 22%;
   padding-bottom: 100%;
   padding-top: 10%;
+  padding: 8%;
   width: 1100px;
   height: 100%;
   button, input{
@@ -48,7 +48,6 @@ const Random = () => {
   const [tenRandom, setTenRandom] = useState([]);
   const [ switched, setSwitched ] = useState(false);
 
-
   const fetchRandomDrink = async () => {
     setIsLoaded(false);
     try {
@@ -81,6 +80,9 @@ const Random = () => {
     };
   }, []);
 
+
+
+
   const handleSwitch = (e) => {
     const { checked } = e.target;
     setSwitched(checked);
@@ -97,6 +99,9 @@ const Random = () => {
     );
   });
 
+
+
+
   useEffect(() => {
     const randomTen = fetchTenRandomDrinks();
     const randomRec = fetchRandomDrink();
@@ -106,6 +111,12 @@ const Random = () => {
         setTenRandom(randomTen);
     };
   }, []);
+
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
 
   useEffect(() => {
     setIsLoaded(true);
@@ -120,6 +131,9 @@ const Random = () => {
       setError(error);
     }
   };
+
+
+
 
 
   return (
@@ -161,5 +175,8 @@ const Random = () => {
     </RandomStyle>
   );
 };
+
+
+
 
 export default Random;

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-
 const MultiSearch = (props) => {
   const [ recipeSearchResults, setRecipeSearchResults ] = useState([]);
   const [ isLoaded, setIsLoaded ] = useState(true);
   const [ error, setError ] = useState(null);
+
 
   const { ingredientsList } = props;
   const searchParams = [...ingredientsList];
@@ -40,7 +40,6 @@ const MultiSearch = (props) => {
       }
     }
   };
-
   const drinkMap = recipeSearchResults.map((drink) => {
     return (
       <div
@@ -76,7 +75,6 @@ const MultiSearch = (props) => {
       </div>
     );
   });
-
   const handleClick = () => {
     try {
       handleMultiItemSearch();
@@ -86,7 +84,6 @@ const MultiSearch = (props) => {
       }
     }
   };
-
   return (
     <div>
       <button
@@ -109,10 +106,7 @@ const MultiSearch = (props) => {
     </div>
   );
 };
-
 MultiSearch.propTypes = {
   ingredientsList: PropTypes.array.isRequired,
 };
-
-
 export default MultiSearch;

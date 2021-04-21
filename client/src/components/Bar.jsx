@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
 import MultiSearch from './MultiSearch';
 import ConditionalBannerH4 from './ConditionalBannerH4';
-
 // Styling
 const BarStyle = styled.div`
   background: inherit;
@@ -34,20 +32,15 @@ const BarStyle = styled.div`
     color: cornflowerblue
   };
 `;
-
 // the bar component will have a text form where users enter ingredients, and a button to add them to that user's bar
 // when a user enters ingredient and clicks 'add' button, ingredient will be added to user's bar in database
 const Bar = () => {
   const [ ingredient, setIngredient ] = useState('');
   const [ ingredientsList, setIngredientsList ] = useState([]);
-
-
   const handleChange = (e) => {
     const { value } = e.target;
     setIngredient(value);
   };
-
-
   const handleClick = async () => {
     try {
       await setIngredientsList((prevList) => {
@@ -58,13 +51,11 @@ const Bar = () => {
       console.info(error);
     }
   };
-
   // Press enter key as an alternative to clicking the button
   const handleKeyDown = (e) => {
     const { key } = e;
     key === 'Enter' && handleClick();
   };
-
 
   // IngredientsMapComponent filters out any empty string, which is added as a result
   // of the user clicking button with an empty input field. When this occurs the empty
@@ -87,8 +78,6 @@ const Bar = () => {
       });
     return compileListEntries;
   };
-
-
   return (
     <BarStyle>
       <div>
@@ -133,6 +122,4 @@ const Bar = () => {
     </BarStyle>
   );
 };
-
-
 export default Bar;

@@ -12,10 +12,4 @@ const ConditionalBannerH4 = ({ banner, item }) => {
     );
   }
 };
-
-
-
-
-
-
 export default ConditionalBannerH4;

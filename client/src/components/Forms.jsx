@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
 import ConditionalBannerH4 from './ConditionalBannerH4';
-
 // Styling
 const FormStyles = styled.div`
   background: inherit;
@@ -37,7 +35,6 @@ const FormStyles = styled.div`
     color: #50d6da;
   };
 `;
-
 // all the options for the select form
 const liquors = [
   {value: '', label: 'Select...', key: 0},
@@ -49,10 +46,6 @@ const liquors = [
   {value: 'Vodka', label: 'Vodka', key: 6},
   {value: 'Whiskey', label: 'Whiskey', key: 7}
 ];
-
-
-
-
 const Forms = () => {
   const [ liquor, setLiquor ] = useState({ strIngredient: '' });
   const [ liquorDescription, setLiquorDescription ] = useState({ strDescription: '' });
@@ -61,14 +54,12 @@ const Forms = () => {
 
   const { strDescription } = liquorDescription;
   const { strIngredient } = liquor;
-
   // will handle the state change when an option from select form is selected
   const handleLiquorChange = (e) => {
     const { value } = e.target;
     console.info(value);
     setLiquor({ strIngredient: value });
   };
-
   // handles the state change when the Search button is clicked
   // also calls the external api to get the data which is then set to the current state of 'liquorDescription'
   const handleDescriptionChange = async () => {
@@ -84,14 +75,10 @@ const Forms = () => {
       }
     }
   };
-
-
   // if the value of strIngredient changes (e.g. a second liquor option is chosen), liquorDescription will reset ('')
   useEffect(() => {
     setLiquorDescription('');
   }, [strIngredient]);
-
-
   return (
     <FormStyles>
       <div>
@@ -143,7 +130,4 @@ const Forms = () => {
     </FormStyles>
   );
 };
-
-
-
 export default Forms;

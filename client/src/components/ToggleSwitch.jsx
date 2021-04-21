@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
-
 const ToggleStyle = styled.div`
   h1{
     color: #85ef85;
@@ -42,12 +40,8 @@ const ToggleStyle = styled.div`
     font-size: 28px;
   }
 `;
-
-
 const ToggleSwitch = (props) => {
-
   const { label, handler } = props;
-
   return (
     <div>
       <label
@@ -72,10 +66,7 @@ const ToggleSwitch = (props) => {
     </div>
   );
 };
-
-
 export default ToggleSwitch;
-
 ToggleSwitch.propTypes = {
   label: PropTypes.string.isRequired,
   handler: PropTypes.func.isRequired
