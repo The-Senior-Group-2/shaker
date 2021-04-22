@@ -48,6 +48,7 @@ const Random = () => {
   const [tenRandom, setTenRandom] = useState([]);
   const [ switched, setSwitched ] = useState(false);
 
+  // TODO:
   const fetchRandomDrink = async () => {
     setIsLoaded(false);
     try {
@@ -61,6 +62,7 @@ const Random = () => {
   };
 
   // get 10 random cocktails
+  // TODO:
   const fetchTenRandomDrinks = async () => {
     setIsLoaded(false);
     try {

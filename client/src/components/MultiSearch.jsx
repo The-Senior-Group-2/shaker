@@ -11,13 +11,6 @@ const MultiSearch = (props) => {
   const { ingredientsList } = props;
   const searchParams = [...ingredientsList];
 
-  // finalParams will use a state prop from the Bar component to process
-  // the data in order to pass it as the param(s) for the external API call.
-  // First it checks the length of the props clone (an error is thrown if
-  // reduce is called with undefined). Then it replaces any whitespace it
-  // finds with an underscore. Finally it reduces the ingredients array
-  // to a single string with no spaces, and commas between each item. This is
-  // how the api expects us to pass multiple params.
   const finalParams = () => {
     if (searchParams.length !== 0) {
       const addUnderscore = searchParams.map(item => item.replace(/\s/g, '_') );
@@ -27,6 +20,8 @@ const MultiSearch = (props) => {
   };
   const params = finalParams();
 
+
+  // TODO:
   const handleMultiItemSearch = async () => {
     setIsLoaded(false);
     try {
