@@ -8,8 +8,18 @@ const FormStyles = styled.div`
   color: ghostwhite;
   display: flex;
   flex-flow: column;
-  padding: 20%;
+  padding-left: 37%;
+  padding-top: 10%;
+  padding-bottom: 100%;
+
   width: 490px;
+  /* background: inherit;
+  color: ghostwhite;
+  display: flex;
+  flex-flow: column;
+  padding-left: 37%;
+  padding-top: 10%;
+  padding-bottom: 22%; */
   button, select{
     background: rgb(35, 35, 35);
     color: ghostwhite;
@@ -48,6 +58,7 @@ const Forms = () => {
   const [ liquorDescription, setLiquorDescription ] = useState({ strDescription: '' });
   const [ isLoaded, setIsLoaded ] = useState(true);
   const [ error, setError ] = useState(null);
+
   const { strDescription } = liquorDescription;
   const { strIngredient } = liquor;
   // will handle the state change when an option from select form is selected

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import MultiSearch from './MultiSearch';
 import ConditionalBannerH4 from './ConditionalBannerH4';
@@ -10,6 +11,13 @@ const BarStyle = styled.div`
   flex-flow: column;
   padding: 20%;
   width: 490px;
+  /* background: inherit;
+  color: ghostwhite;
+  display: flex;
+  flex-flow: column;
+  padding-left: 37%;
+  padding-top: 10%;
+  padding-bottom: 22%; */
   button, input{
     background: rgb(35, 35, 35);
     color: ghostwhite;
@@ -37,25 +45,35 @@ const BarStyle = styled.div`
 const Bar = () => {
   const [ ingredient, setIngredient ] = useState('');
   const [ ingredientsList, setIngredientsList ] = useState([]);
+
+
   const handleChange = (e) => {
     const { value } = e.target;
     setIngredient(value);
   };
+
+
   const handleClick = async () => {
     try {
       await setIngredientsList((prevList) => {
         return [ ...prevList, ingredient ];
+      });
+      axios.put('/bar', {
+        ingredient: ingredient,
       });
       setIngredient('');
     } catch (error) {
       console.info(error);
     }
   };
-  // Press enter key as an alternative to clicking the button
+
+
+
   const handleKeyDown = (e) => {
     const { key } = e;
     key === 'Enter' && handleClick();
   };
+
   // IngredientsMapComponent filters out any empty string, which is added as a result
   // of the user clicking button with an empty input field. When this occurs the empty
   // string won't be rendered to the page either way, but it is still added to the

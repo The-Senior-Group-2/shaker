@@ -63,8 +63,21 @@ const clientPath = path.resolve(__dirname, '../client/dist');
 const { Ingredient } = require('./database/index');
 const { getIngredients } = require('./api/index');
 const { possibleRecipes } = require('./barFilter/index');
+const { Bar } = require('./database/index');
+const { filterRecipes } = require('./barFilter/index');
 
 //const app = express();
+
+app.post('/bar', (req, res) => {
+  Bar.findOne(({name: req.body.ingredient})
+    .then(data => {
+      if (!data) {
+        Bar.create({ name: req.body.ingredient});
+        console.info(res);
+      }
+    })
+  );
+});
 
 const PORT = 8080;
 app.use(express.json());
@@ -86,8 +99,14 @@ app.use('/', (req, res) => {
 });
 
 app.get('/sip', (req, res) => {
-  const { ingredients } = req.body;
-  possibleRecipes(ingredients).then(() => res.sendStatus(201));
+  Bar.findAll((data) => {
+    const ingArr = [];
+    data.forEach(ing => {
+      ingArr.push(ing.name);
+      const drinks = filterRecipes(possibleRecipes(ingArr));
+      res.status(200).send(drinks);
+    });
+  });
 });
 
 app.listen(PORT, () => {

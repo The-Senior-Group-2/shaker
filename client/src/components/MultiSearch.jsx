@@ -1,40 +1,42 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-const MultiSearch = (props) => {
+
+const MultiSearch = () => {
   const [ recipeSearchResults, setRecipeSearchResults ] = useState([]);
   const [ isLoaded, setIsLoaded ] = useState(true);
   const [ error, setError ] = useState(null);
-  const { ingredientsList } = props;
-  const searchParams = [...ingredientsList];
-  // finalParams will use a state prop from the Bar component to process
-  // the data in order to pass it as the param(s) for the external API call.
-  // First it checks the length of the props clone (an error is thrown if
-  // reduce is called with undefined). Then it replaces any whitespace it
-  // finds with an underscore. Finally it reduces the ingredients array
-  // to a single string with no spaces, and commas between each item. This is
-  // how the api expects us to pass multiple params.
-  const finalParams = () => {
-    if (searchParams.length !== 0) {
-      const addUnderscore = searchParams.map(item => item.replace(/\s/g, '_') );
-      const addCommas = addUnderscore.reduce((accItem, curItem) => accItem + ',' + curItem );
-      return addCommas;
-    }
-  };
-  const params = finalParams();
-  const handleMultiItemSearch = async () => {
-    setIsLoaded(false);
-    try {
-      const results = await axios.get(`https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${params}`);
-      setRecipeSearchResults(results.data.drinks);
-      setIsLoaded(true);
-    } catch (error) {
-      if (error) {
-        setError(error);
-        setIsLoaded(true);
-      }
-    }
-  };
+
+
+  // const { ingredientsList } = props;
+  // const searchParams = [...ingredientsList];
+
+  // const finalParams = () => {
+  //   if (searchParams.length !== 0) {
+  //     const addUnderscore = searchParams.map(item => item.replace(/\s/g, '_') );
+  //     const addCommas = addUnderscore.reduce((accItem, curItem) => accItem + ',' + curItem );
+  //     return addCommas;
+  //   }
+  // };
+  // const params = finalParams();
+
+
+  // TODO:
+  // const handleMultiItemSearch = async () => {
+  //   setIsLoaded(false);
+  //   try {
+  //     const results = await axios.get(`https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${params}`);
+  //     setRecipeSearchResults(results.data.drinks);
+  //     setIsLoaded(true);
+  //   } catch (error) {
+  //     if (error) {
+  //       setError(error);
+  //       setIsLoaded(true);
+  //     }
+  //   }
+  // };
+
+
   const drinkMap = recipeSearchResults.map((drink) => {
     return (
       <div
@@ -70,15 +72,32 @@ const MultiSearch = (props) => {
       </div>
     );
   });
+
+  const sipFunc = () => {
+    setIsLoaded(false);
+    axios.get('/sip')
+      .then(response => {
+        setIsLoaded(true);
+        setRecipeSearchResults(response.data);
+      })
+      .then(() => drinkMap)
+      .catch(err => {
+        throw err;
+      });
+  };
+
   const handleClick = () => {
     try {
-      handleMultiItemSearch();
+      // handleMultiItemSearch();
+      sipFunc();
     } catch (error) {
       if (error) {
         setError(error);
       }
     }
   };
+
+
   return (
     <div>
       <button

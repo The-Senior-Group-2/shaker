@@ -3,11 +3,15 @@ import axios from 'axios';
 import styled from 'styled-components';
 import RecipeView from './RecipeView';
 import ToggleSwitch from './ToggleSwitch';
+
 const RandomStyle = styled.div`
   background: inherit;
   color: ghostwhite;
   display: flex;
   flex-flow: column;
+  padding-left: 22%;
+  padding-bottom: 100%;
+  padding-top: 10%;
   padding: 8%;
   width: 1100px;
   height: 100%;
@@ -34,13 +38,17 @@ const RandomStyle = styled.div`
     padding-left: 4%;
   };
 `;
+
 const Random = () => {
   const [ isLoaded, setIsLoaded ] = useState(true);
   const [ error, setError ] = useState('');
   const [ randomRecipe, setRandomRecipe ] = useState([]);
+
   // 10
   const [tenRandom, setTenRandom] = useState([]);
   const [ switched, setSwitched ] = useState(false);
+
+  // TODO:
   const fetchRandomDrink = async () => {
     setIsLoaded(false);
     try {
@@ -52,7 +60,9 @@ const Random = () => {
       setError(error);
     }
   };
+
   // get 10 random cocktails
+  // TODO:
   const fetchTenRandomDrinks = async () => {
     setIsLoaded(false);
     try {
@@ -64,16 +74,22 @@ const Random = () => {
       setError(error);
     }
   };
+
   useEffect(() => {
     const randomRec = fetchTenRandomDrinks();
     return () => {
       setRandomRecipe(randomRec);
     };
   }, []);
+
+
+
+
   const handleSwitch = (e) => {
     const { checked } = e.target;
     setSwitched(checked);
   };
+
   const tenMap = tenRandom.map((drinkObj, i) => {
     return (
       <RecipeView
@@ -84,6 +100,10 @@ const Random = () => {
       />
     );
   });
+
+
+
+
   useEffect(() => {
     const randomTen = fetchTenRandomDrinks();
     const randomRec = fetchRandomDrink();
@@ -93,9 +113,17 @@ const Random = () => {
         setTenRandom(randomTen);
     };
   }, []);
+
+
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   const handleClick = () => {
     try {
       !switched ?
@@ -105,6 +133,11 @@ const Random = () => {
       setError(error);
     }
   };
+
+
+
+
+
   return (
     <RandomStyle>
       <div>
@@ -144,4 +177,8 @@ const Random = () => {
     </RandomStyle>
   );
 };
+
+
+
+
 export default Random;
