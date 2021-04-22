@@ -56,11 +56,25 @@ const addIngredientsToDb = () => {
     }));
 };
 
+const filterRecipes = (recipes) => {
+  const recipeArr = [];
+  const recipeIdArr = [];
+  recipes.forEach(recipe => {
+    if (!recipeIdArr.includes(recipe.id)) {
+      recipeArr.push(recipe);
+      recipeIdArr.push(recipe.id);
+    }
+  });
+  return recipeArr;
+};
+
+
 //possibleRecipes(['Lemon', 'Gin', 'Lime', 'Grenadine']);
 
 module.exports = {
   possibleRecipes,
   createRecipe,
   addRecipeTodb,
-  addIngredientsToDb
+  addIngredientsToDb,
+  filterRecipes
 };

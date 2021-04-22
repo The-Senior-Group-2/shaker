@@ -25,15 +25,24 @@ const Recipe = sequelize.define('Recipe', {
   ingredients: DataTypes.STRING
 });
 
+const Bar = sequelize.define('Bar', {
+  name: DataTypes.STRING,
+});
+
 Ingredient.sync();
 Recipe.sync();
 User.sync();
+Bar.sync();
 
 Ingredient.belongsToMany(Recipe, { through: 'RecipeIngredients' });
 Recipe.belongsToMany(Ingredient, { through: 'RecipeIngredients' });
 
+
+
+
 module.exports = {
   Ingredient,
   User,
-  Recipe
+  Recipe,
+  Bar
 };

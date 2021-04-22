@@ -13,6 +13,13 @@ const FormStyles = styled.div`
   padding-bottom: 100%;
 
   width: 490px;
+  /* background: inherit;
+  color: ghostwhite;
+  display: flex;
+  flex-flow: column;
+  padding-left: 37%;
+  padding-top: 10%;
+  padding-bottom: 22%; */
   button, select{
     background: rgb(35, 35, 35);
     color: ghostwhite;
