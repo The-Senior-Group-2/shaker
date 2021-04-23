@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MultiSearch from './MultiSearch';
 import ConditionalBannerH4 from './ConditionalBannerH4';
+import axios from 'axios';
+
+
+
 // Styling
 const BarStyle = styled.div`
   background: inherit;
@@ -37,10 +41,39 @@ const BarStyle = styled.div`
 const Bar = () => {
   const [ ingredient, setIngredient ] = useState('');
   const [ ingredientsList, setIngredientsList ] = useState([]);
+  const [ allIngs, setAllIngs] = useState([]);
+
   const handleChange = (e) => {
     const { value } = e.target;
     setIngredient(value);
   };
+
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: 'https://the-cocktail-db.p.rapidapi.com/list.php',
+      params: {i: 'list'},
+      headers: {
+        'x-rapidapi-key': '70cf5db794msh68d005415beb5c4p1b4cefjsn04b516b60f77',
+        'x-rapidapi-host': 'the-cocktail-db.p.rapidapi.com'
+      }
+    };
+    if (!allIngs.length) {
+      axios.request(options)
+        .then(res => {
+          const ingArr = [];
+          const ingArray = res.data.drinks.map(ing => {
+            return ing.strIngredient1;
+          });
+          console.log(ingArray);
+          setAllIngs(ingArray);
+        }).then(() => {
+
+          console.log('hereeeeee', allIngs);
+        });
+    }
+  }, []);
+
   const handleClick = async () => {
     try {
       await setIngredientsList((prevList) => {
@@ -51,6 +84,8 @@ const Bar = () => {
       console.info(error);
     }
   };
+
+
   // Press enter key as an alternative to clicking the button
   const handleKeyDown = (e) => {
     const { key } = e;
