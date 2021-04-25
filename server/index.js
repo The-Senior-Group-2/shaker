@@ -5,6 +5,13 @@ const path = require('path');
 const dotenv = require('dotenv');
 const app = express();
 const cors = require('cors');
+const { useState } = require('react');
+const { Ingredient } = require('./database/index');
+const { getIngredients } = require('./api/index');
+const { possibleRecipes } = require('./barFilter/index');
+const { Bar } = require('./database/index');
+const { filterRecipes } = require('./barFilter/index');
+
 //const bodyParser = require('body-parser');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -34,6 +41,23 @@ const isLoggedIn = (req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.json());
+app.use(urlencoded({extended: true}));
+
+app.get('/sip', (req, res) => {
+  Bar.findAll().then((data) => {
+    console.info('yoooooo', data);
+    const ingArr = [];
+    data.forEach(ing => {
+      ingArr.push(ing.name);
+      const drinks = filterRecipes(possibleRecipes(ingArr));
+      res.status(200).send(drinks);
+    });
+  }).catch(err => res.send(500));
+});
+
+
+
 
 app.get('/none', (req, res) => res.send('You logged out!'));
 
@@ -60,11 +84,7 @@ app.get('/logout', (req, res) => {
 });
 
 const clientPath = path.resolve(__dirname, '../client/dist');
-const { Ingredient } = require('./database/index');
-const { getIngredients } = require('./api/index');
-const { possibleRecipes } = require('./barFilter/index');
-const { Bar } = require('./database/index');
-const { filterRecipes } = require('./barFilter/index');
+
 
 //const app = express();
 
@@ -80,8 +100,8 @@ app.post('/bar', (req, res) => {
 });
 
 const PORT = 8080;
-app.use(express.json());
-app.use(urlencoded({extended: true}));
+// app.use(express.json());
+// app.use(urlencoded({extended: true}));
 
 app.use('/', express.static(clientPath));
 
@@ -96,17 +116,6 @@ app.use('/', (req, res) => {
       }
       res.sendStatus(201);
     });
-});
-
-app.get('/sip', (req, res) => {
-  Bar.findAll((data) => {
-    const ingArr = [];
-    data.forEach(ing => {
-      ingArr.push(ing.name);
-      const drinks = filterRecipes(possibleRecipes(ingArr));
-      res.status(200).send(drinks);
-    });
-  });
 });
 
 app.listen(PORT, () => {

@@ -105,19 +105,6 @@ const MyNavbar = () => {
           <Route exact path='/learn' component={Forms} />
           <Route exact path='/random' component={Random} />
           <Route exact path='/' component={Home} />
-          {/* <Route render={function () {
-            return (
-              <div style={{
-                backgroundImage: 'url("https://images.unsplash.com/photo-1612325508365-22caba7bb69e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80")',
-                height: '1000px',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat'
-              }}>
-                <Route exact path='/' component={Search} />
-              </div>
-            );
-          }} /> */}
         </Switch>
       </div>
     </div>

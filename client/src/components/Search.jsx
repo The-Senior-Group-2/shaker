@@ -40,10 +40,7 @@ const Search = () => {
 
   // TODO:
   const handleSingleItemSearch = async () => {
-    // const result = await axios.get(`/shaker/search/${searchFor}`);
-    // const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
-    // const result = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php', { params: { i: `${searchFor}` } });
-    const result = await axios.get('/', { params: { i: `${searchFor}` } });
+    const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
     console.info(result);
     setSearchResults(result.data.drinks);
   };

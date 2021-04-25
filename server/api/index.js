@@ -2,7 +2,7 @@ const axios = require('axios').default;
 //const { Ingredient } = require('../database/index');
 const { API_KEY } = require('../config');
 
-const getIngredients = () => {
+const getIngredients =  () => {
   const options = {
     method: 'GET',
     url: 'https://the-cocktail-db.p.rapidapi.com/list.php',
@@ -16,10 +16,10 @@ const getIngredients = () => {
   return axios.request(options);
 };
 
-const drinksByIngredient = (ingredient) => {
+const drinksByIngredient =  (ingredient) => {
   const options = {
     method: 'GET',
-    url: 'https://the-cocktail-db.p.rapidapi.com/filter.php',
+    url: 'https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?',
     params: {i: `${ingredient}`},
     headers: {
       'x-rapidapi-key': API_KEY,

@@ -57,6 +57,7 @@ const addIngredientsToDb = () => {
 };
 
 const filterRecipes = (recipes) => {
+
   const recipeArr = [];
   const recipeIdArr = [];
   recipes.forEach(recipe => {

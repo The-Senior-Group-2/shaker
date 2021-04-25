@@ -12,7 +12,6 @@ const RandomStyle = styled.div`
   padding-left: 22%;
   padding-bottom: 100%;
   padding-top: 10%;
-  padding: 8%;
   width: 1100px;
   height: 100%;
   button, input{

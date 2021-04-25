@@ -11,7 +11,6 @@ const FormStyles = styled.div`
   padding-left: 37%;
   padding-top: 10%;
   padding-bottom: 100%;
-
   width: 490px;
   /* background: inherit;
   color: ghostwhite;

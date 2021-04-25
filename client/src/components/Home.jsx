@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
 
 
@@ -10,12 +10,7 @@ const responseGoogle = (response) => {
     .catch(err => console.warn(err));
   console.info(response);
 };
-const logout = (response) => {
-  axios.get('/logout')
-    .then(data => console.info(data))
-    .catch(err => console.warn(err));
-  console.info(response);
-};
+
 
 
 const Home = () => {
@@ -37,12 +32,6 @@ const Home = () => {
         onFailure={responseGoogle}
         cookiePolicy={'single_host_origin'}
       />
-      <GoogleLogout
-        clientId="110527149847-9ngotcps08510vb19n4ireoj9nk7qrob.apps.googleusercontent.com"
-        buttonText="Logout"
-        onLogoutSuccess={logout}
-      >
-      </GoogleLogout>
 
     </div>
 
