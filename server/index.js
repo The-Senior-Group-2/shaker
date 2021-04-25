@@ -1,9 +1,16 @@
+//const axios = require('axios');
 const { urlencoded } = require('express');
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const app = express();
 const cors = require('cors');
+const { useState } = require('react');
+const { Ingredient } = require('./database/index');
+const { getIngredients } = require('./api/index');
+const { possibleRecipes } = require('./barFilter/index');
+const { Bar } = require('./database/index');
+const { filterRecipes } = require('./barFilter/index');
 
 //const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -34,6 +41,23 @@ const isLoggedIn = (req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.json());
+app.use(urlencoded({extended: true}));
+
+app.get('/sip', (req, res) => {
+  Bar.findAll().then((data) => {
+    console.info('yoooooo', data);
+    const ingArr = [];
+    data.forEach(ing => {
+      ingArr.push(ing.name);
+      const drinks = filterRecipes(possibleRecipes(ingArr));
+      res.status(200).send(drinks);
+    });
+  }).catch(err => res.send(500));
+});
+
+
+
 
 app.get('/none', (req, res) => res.send('You logged out!'));
 
@@ -61,14 +85,38 @@ app.get('/logout', (req, res) => {
 
 const clientPath = path.resolve(__dirname, '../client/dist');
 
+
 //const app = express();
 
+app.post('/bar', (req, res) => {
+  Bar.findOne(({name: req.body.ingredient})
+    .then(data => {
+      if (!data) {
+        Bar.create({ name: req.body.ingredient});
+        console.info(res);
+      }
+    })
+  );
+});
+
 const PORT = 8080;
-app.use(express.json());
-app.use(urlencoded({extended: true}));
+// app.use(express.json());
+// app.use(urlencoded({extended: true}));
 
 app.use('/', express.static(clientPath));
 
+app.use('/', (req, res) => {
+  Ingredient.findAll().
+    then(data => {
+      if (!data) {
+        getIngredients()
+          .then(response => {
+            response.data.forEach(ing => Ingredient.create( {ingredient: ing.strIngredient1}));
+          });
+      }
+      res.sendStatus(201);
+    });
+});
 
 app.listen(PORT, () => {
   console.info(`started on port: http://localhost:${PORT}`);

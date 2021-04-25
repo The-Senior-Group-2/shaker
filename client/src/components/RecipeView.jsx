@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+
 // Styling
 const RecipeStyle = styled.div`
   background: inherit;
@@ -32,6 +34,7 @@ const RecipeStyle = styled.div`
     padding-left: 4%;
   };
 `;
+
 const RecipeIngredientsStyle = styled.div`
   th{
     vertical-align: top;
@@ -45,40 +48,44 @@ const RecipeIngredientsStyle = styled.div`
   };
 `;
 // END OF STYLING
+
+
+
 // I ran out of time to refactor this component into functioning dynamically,
 // hence the absurd file length. So...to whoever has to code here next... my bad.
 const RecipeView = (props) => {
   const [ recipeToRender, setRecipeToRender ] = useState([]);
   const [ isLoaded, setIsLoaded ] = useState(true);
   const [ error, setError ] = useState('');
+
   const { recipe, loaded, err } = props;
+
   // sets the states to the value of the props when the component initially mounts
   useEffect(() => {
     return () => {
       setRecipeToRender(recipe);
     };
   }, [recipe]);
+
   useEffect(() => {
     return () => {
       setIsLoaded(loaded);
     };
   }, [loaded]);
+
   useEffect(() => {
     return () => {
       setError(loaded);
     };
   }, [err]);
+
+
+
+
   // map out the recipe array
   const recipeMap = recipeToRender.map(drink => {
     return (
-      <RecipeStyle
-        key={drink.idDrink}
-        style={{
-          border: '2px solid ghostwhite',
-          margin: '5%',
-          alignItems: 'center',
-        }}
-      >
+      <RecipeStyle key={drink.idDrink} style={{ border: '2px solid ghostwhite', margin: '5%', alignItems: 'center' }}>
         <table style={{ width: '100%' }}>
           <tbody>
             <tr>
@@ -239,15 +246,23 @@ const RecipeView = (props) => {
             </tr>
           </tbody>
         </table>
-        <div style={{paddingLeft: '3%', paddingBelow: '4%'}}>
-          <h2>Instructions</h2>
-          <p style={{ paddingBottom: '3%' }}>
-            {drink.strInstructions}
-          </p>
+        <div
+          style={{
+            paddingLeft: '3%',
+            paddingBelow: '4%'
+          }}
+        >
+          <div style={{paddingLeft: '3%', paddingBelow: '4%'}}>
+            <h2>Instructions</h2>
+            <p style={{ paddingBottom: '3%' }}>
+              {drink.strInstructions}
+            </p>
+          </div>
         </div>
       </RecipeStyle>
     );
   });
+
   return (
     <div>
       {
@@ -260,9 +275,11 @@ const RecipeView = (props) => {
     </div>
   );
 };
+
 RecipeView.propTypes = {
   recipe: PropTypes.array.isRequired,
   loaded: PropTypes.bool.isRequired,
   err: PropTypes.string.isRequired
 };
+
 export default RecipeView;
