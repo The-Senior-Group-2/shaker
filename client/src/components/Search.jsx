@@ -40,9 +40,13 @@ const Search = () => {
 
   // TODO:
   const handleSingleItemSearch = async () => {
-    const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
-    console.info(result);
-    setSearchResults(result.data.drinks);
+    try {
+      const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchFor}`);
+      console.info(result);
+      setSearchResults(result.data.drinks);
+    } catch (err) {
+      console.info(err);
+    }
   };
 
   const handleClick = () => {
