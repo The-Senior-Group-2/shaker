@@ -1,4 +1,4 @@
-import NavBar from './Navbar.jsx';
+import NavBar from './navbar.jsx';
 import styled from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
 import React, { Component } from 'react';
