@@ -61,15 +61,15 @@ const Bar = () => {
     if (!allIngs.length) {
       axios.request(options)
         .then(res => {
-          const ingArr = [];
+          // const ingArr = [];
           const ingArray = res.data.drinks.map(ing => {
             return ing.strIngredient1;
           });
-          console.log(ingArray);
+          // console.log(ingArray);
           setAllIngs(ingArray);
         }).then(() => {
 
-          console.log('hereeeeee', allIngs);
+          // console.log('hereeeeee', allIngs);
         });
     }
   }, []);

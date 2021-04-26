@@ -5,7 +5,6 @@ const path = require('path');
 const dotenv = require('dotenv');
 const app = express();
 const cors = require('cors');
-const { useState } = require('react');
 const { Ingredient } = require('./database/index');
 const { getIngredients } = require('./api/index');
 const { possibleRecipes } = require('./barFilter/index');
@@ -46,14 +45,13 @@ app.use(urlencoded({extended: true}));
 
 app.get('/sip', (req, res) => {
   Bar.findAll().then((data) => {
-    console.info('yoooooo', data);
     const ingArr = [];
     data.forEach(ing => {
       ingArr.push(ing.name);
       const drinks = filterRecipes(possibleRecipes(ingArr));
       res.status(200).send(drinks);
     });
-  }).catch(err => res.send(500));
+  }).catch(() => res.send(500));
 });
 
 
